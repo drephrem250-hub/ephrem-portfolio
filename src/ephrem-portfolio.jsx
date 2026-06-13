@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import "./portfolio.css";
 
 // ─── INITIAL DATA ───────────────────────────────────────────────────────────
 const INITIAL_DATA = {
@@ -157,41 +158,9 @@ const PortfolioSite = ({ data, onAdminClick }) => {
   const navItems = ["Home","About","Research","Ventures","Initiatives","Innovation Lab","Writing","Speaking","CV","Contact"];
 
   return (
-    <div style={{ fontFamily: "'DM Sans', system-ui, sans-serif", background: "#F8F5F0", minHeight: "100vh", color: "#1A1612" }}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap');
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #F8F5F0; } ::-webkit-scrollbar-thumb { background: #C0392B; border-radius: 3px; }
-        .serif { font-family: 'DM Serif Display', Georgia, serif; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
-        .nav-link { cursor: pointer; font-size: 0.75rem; font-family: 'JetBrains Mono',monospace; letter-spacing: 0.1em; text-transform: uppercase; color: #4A4340; padding: 0.4rem 0; border-bottom: 2px solid transparent; transition: all 0.2s; }
-        .nav-link:hover, .nav-link.active { color: #C0392B; border-bottom-color: #C0392B; }
-        .btn-primary { background: #1A1612; color: #fff; border: 2px solid #1A1612; padding: 0.75rem 1.8rem; font-weight: 600; font-size: 0.9rem; border-radius: 3px; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
-        .btn-primary:hover { background: #C0392B; border-color: #C0392B; }
-        .btn-outline { background: transparent; color: #1A1612; border: 2px solid #1A1612; padding: 0.75rem 1.8rem; font-weight: 600; font-size: 0.9rem; border-radius: 3px; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
-        .btn-outline:hover { background: #1A1612; color: #fff; }
-        .card { background: #fff; border: 1px solid #E8E0D5; border-radius: 6px; padding: 1.8rem; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
-        .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg,#C0392B,#E8654A); transform:scaleX(0); transform-origin:left; transition: transform 0.3s; }
-        .card:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,0.08); }
-        .card:hover::before { transform: scaleX(1); }
-        .section-title { font-family:'DM Serif Display',serif; font-size: clamp(1.8rem,3vw,2.4rem); line-height:1.1; }
-        .tag { display:inline-block; padding:0.25rem 0.75rem; border-radius:2rem; font-size:0.75rem; font-weight:600; }
-        .timeline-dot { width:10px; height:10px; border-radius:50%; background:#C0392B; border:2px solid #F8F5F0; flex-shrink:0; margin-top:5px; }
-        .pill { display:inline-block; padding:0.3rem 0.85rem; border-radius:2rem; font-size:0.78rem; font-weight:600; }
-        input, textarea, select { font-family: 'DM Sans', system-ui, sans-serif; }
-        .fade-in { animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
-        .writing-row { display:grid; grid-template-columns:70px 1fr 24px; gap:1.5rem; align-items:start; padding:1.5rem 0; border-bottom:1px solid #E8E0D5; cursor:pointer; }
-        .writing-row:hover .writing-row-title { color:#C0392B; }
-        .writing-row:hover .arrow { color:#C0392B; transform:translateX(4px); }
-        .arrow { color:#C0392B; transition: all 0.2s; font-size:1.1rem; padding-top:3px; }
-        @media(max-width:768px) { .nav-desktop { display:none!important; } }
-        @media(min-width:769px) { .nav-mobile-btn { display:none!important; } }
-      `}</style>
-
+    <div style={{ fontFamily: "'DM Sans', system-ui, sans-serif", background: "#F9F7F3", minHeight: "100vh", color: "#1A1612" }}>
       {/* NAV */}
-      <nav style={{ position:"fixed", top:0, left:0, right:0, zIndex:1000, background:"rgba(248,245,240,0.92)", backdropFilter:"blur(12px)", borderBottom:"1px solid #E8E0D5", padding:"0 2rem", height:"60px", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+      <nav style={{ position:"fixed", top:0, left:0, right:0, zIndex:1000, background:"rgba(249,247,243,0.92)", backdropFilter:"blur(12px)", borderBottom:"1px solid #E8E0D5", padding:"0 clamp(1rem, 5vw, 2rem)", height:"60px", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
         <span onClick={()=>setActivePage("home")} style={{ fontFamily:"'DM Serif Display',serif", fontSize:"1.1rem", cursor:"pointer", letterSpacing:"0.01em" }}>Ephrem Dushimimana</span>
         <div className="nav-desktop" style={{ display:"flex", gap:"1.8rem", alignItems:"center" }}>
           {navItems.map(n=>(
@@ -206,10 +175,10 @@ const PortfolioSite = ({ data, onAdminClick }) => {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div style={{ position:"fixed", inset:0, zIndex:999, background:"rgba(248,245,240,0.98)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:"2rem" }}>
+        <div style={{ position:"fixed", inset:0, zIndex:999, background:"rgba(249,247,243,0.98)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:"2rem" }}>
           <button onClick={()=>setMobileOpen(false)} style={{ position:"absolute", top:"1.5rem", right:"1.5rem", background:"none", border:"none", cursor:"pointer" }}><Icon name="x" size={24}/></button>
           {navItems.map(n=>(
-            <span key={n} style={{ fontFamily:"'DM Serif Display',serif", fontSize:"2rem", cursor:"pointer", color: activePage===n.toLowerCase()?"#C0392B":"#1A1612" }} onClick={()=>{setActivePage(n.toLowerCase());setMobileOpen(false)}}>{n}</span>
+            <span key={n} style={{ fontFamily:"'DM Serif Display',serif", fontSize:"2rem", cursor:"pointer", color: activePage===n.toLowerCase()?"#E63946":"#1A1612" }} onClick={()=>{setActivePage(n.toLowerCase());setMobileOpen(false)}}>{n}</span>
           ))}
         </div>
       )}
@@ -237,19 +206,19 @@ const HomePage = ({ data, onNav }) => {
   return (
     <div className="fade-in">
       {/* HERO */}
-      <section style={{ minHeight:"calc(100vh - 60px)", display:"grid", gridTemplateColumns:"1fr 1fr", background:"#F8F5F0", position:"relative", overflow:"hidden" }}>
-        <div style={{ display:"flex", flexDirection:"column", justifyContent:"center", padding:"clamp(3rem,8vw,8rem) clamp(1.5rem,5vw,5rem)", position:"relative", zIndex:1 }}>
-          <div className="mono" style={{ fontSize:"0.7rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"#C0392B", marginBottom:"1.2rem" }}>Medical Student · Digital Health · SRH Advocate</div>
-          <h1 className="serif" style={{ fontSize:"clamp(2.8rem,5.5vw,5.5rem)", lineHeight:1.02, marginBottom:"0.6rem" }}>
+      <section style={{ minHeight:"calc(100vh - 60px)", display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(300px, 1fr))", background:"#F9F7F3", position:"relative", overflow:"hidden" }}>
+        <div style={{ display:"flex", flexDirection:"column", justifyContent:"center", padding:"clamp(2rem, 8vw, 8rem) clamp(1.5rem, 5vw, 5rem)", position:"relative", zIndex:1 }}>
+          <div className="mono" style={{ fontSize:"0.7rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"#E63946", marginBottom:"1.2rem" }}>Medical Student · Digital Health · SRH Advocate</div>
+          <h1 className="serif" style={{ fontSize:"clamp(2rem, 5vw, 5.5rem)", lineHeight:1.02, marginBottom:"0.6rem" }}>
             {profile.name.split(" ")[0]}<br/>
-            <em style={{ color:"#C0392B" }}>{profile.name.split(" ").slice(1).join(" ")}</em>
+            <em style={{ color:"#E63946" }}>{profile.name.split(" ").slice(1).join(" ")}</em>
           </h1>
-          <p className="serif" style={{ fontSize:"1.15rem", fontStyle:"italic", color:"#4A4340", maxWidth:"440px", marginBottom:"2rem", lineHeight:1.6 }}>
+          <p className="serif" style={{ fontSize:"clamp(0.9rem, 2vw, 1.15rem)", fontStyle:"italic", color:"#4A4340", maxWidth:"440px", marginBottom:"2rem", lineHeight:1.6 }}>
             {profile.tagline.substring(0, 120)}...
           </p>
           <div style={{ display:"flex", gap:"0.6rem", flexWrap:"wrap", marginBottom:"2.5rem" }}>
             {["Medicine","Digital Health","SRH Advocacy","Research"].map((p,i)=>(
-              <span key={p} className="pill" style={{ background:["#C0392B","#1A7A6E","#B8860B","#2C3E50"][i], color:"#fff" }}>{p}</span>
+              <span key={p} className="pill" style={{ background:["#E63946","#2A9D8F","#D4A574","#2C3E50"][i], color:"#fff" }}>{p}</span>
             ))}
           </div>
           <div style={{ display:"flex", gap:"1rem", flexWrap:"wrap" }}>
@@ -258,9 +227,9 @@ const HomePage = ({ data, onNav }) => {
             {profile.cvUrl && <a href={profile.cvUrl} className="btn-outline" target="_blank" rel="noreferrer" style={{ display:"flex", alignItems:"center", gap:"0.4rem" }}><Icon name="download" size={15}/> Download CV</a>}
           </div>
         </div>
-        <div style={{ background:"linear-gradient(135deg,#EEE9E0,#E8D5C4)", display:"flex", alignItems:"center", justifyContent:"center", position:"relative", overflow:"hidden" }}>
-          <div style={{ position:"absolute", width:"420px", height:"420px", borderRadius:"50%", background:"radial-gradient(circle,#C0392B22,transparent)", animation:"pulse 6s ease-in-out infinite" }}></div>
-          <div style={{ width:"280px", height:"340px", borderRadius:"12px", background: profile.photo ? `url(${profile.photo}) center/cover` : "linear-gradient(160deg,#EEE9E0,#D6CFC5)", border:"2px solid #D6CFC5", boxShadow:"20px 20px 60px rgba(0,0,0,0.12)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", position:"relative", zIndex:2 }}>
+        <div style={{ background:"linear-gradient(135deg,#F0E9E0,#E8D5C4)", display:"flex", alignItems:"center", justifyContent:"center", position:"relative", overflow:"hidden", minHeight:"400px" }}>
+          <div style={{ position:"absolute", width:"420px", height:"420px", borderRadius:"50%", background:"radial-gradient(circle,#E6394622,transparent)", animation:"pulse 6s ease-in-out infinite" }}></div>
+          <div style={{ width:"280px", height:"340px", borderRadius:"12px", background: profile.photo ? `url(${profile.photo}) center/cover` : "linear-gradient(160deg,#F0E9E0,#D6CFC5)", border:"2px solid #D6CFC5", boxShadow:"20px 20px 60px rgba(0,0,0,0.12)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", position:"relative", zIndex:2 }}>
             {!profile.photo && (
               <>
                 <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="24" r="14" stroke="#4A4340" strokeWidth="2"/><path d="M6 58c0-14.359 11.641-26 26-26s26 11.641 26 26" stroke="#4A4340" strokeWidth="2" strokeLinecap="round"/></svg>
@@ -269,27 +238,33 @@ const HomePage = ({ data, onNav }) => {
             )}
           </div>
           <div style={{ position:"absolute", bottom:"20%", left:"8%", background:"#fff", border:"1px solid #E8E0D5", borderRadius:"6px", padding:"0.8rem 1.2rem", boxShadow:"8px 8px 24px rgba(0,0,0,0.08)", zIndex:3 }}>
-            <div className="serif" style={{ fontSize:"1.8rem", color:"#C0392B", lineHeight:1 }}>{data.research.length}</div>
+            <div className="serif" style={{ fontSize:"1.8rem", color:"#E63946", lineHeight:1 }}>{data.research.length}</div>
             <div style={{ fontSize:"0.72rem", color:"#4A4340", marginTop:"0.15rem", fontWeight:500 }}>Research Projects</div>
           </div>
           <div style={{ position:"absolute", top:"25%", right:"8%", background:"#fff", border:"1px solid #E8E0D5", borderRadius:"6px", padding:"0.8rem 1.2rem", boxShadow:"8px 8px 24px rgba(0,0,0,0.08)", zIndex:3 }}>
-            <div className="serif" style={{ fontSize:"1.8rem", color:"#1A7A6E", lineHeight:1 }}>{data.writing.length}</div>
+            <div className="serif" style={{ fontSize:"1.8rem", color:"#2A9D8F", lineHeight:1 }}>{data.writing.length}</div>
             <div style={{ fontSize:"0.72rem", color:"#4A4340", marginTop:"0.15rem", fontWeight:500 }}>Published Articles</div>
           </div>
         </div>
-        <style>{`@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}`}</style>
+        <style>{`@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+          @media(max-width:768px){
+            section{min-height:auto;grid-template-columns:1fr}
+            section > div:last-child{min-height:300px}
+            .serif{font-size:clamp(1.2rem,4vw,2.8rem)!important}
+          }
+        `}</style>
       </section>
 
       {/* FEATURED RESEARCH */}
-      <section style={{ padding:"5rem 4rem", background:"#fff" }}>
+      <section style={{ padding:"clamp(2rem, 8vw, 5rem) clamp(1.5rem, 5vw, 4rem)", background:"#fff" }}>
         <SectionHeader num="01" title="Featured Research" />
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))", gap:"1.2rem", marginBottom:"2rem" }}>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(280px, 1fr))", gap:"1.2rem", marginBottom:"2rem" }}>
           {research.slice(0,3).map((r,i)=>(
             <div key={i} className="card">
-              <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#1A7A6E", marginBottom:"0.7rem" }}>◆ {r.type}</div>
+              <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#2A9D8F", marginBottom:"0.7rem" }}>◆ {r.type}</div>
               <div className="serif" style={{ fontSize:"1.05rem", marginBottom:"0.7rem", lineHeight:1.35 }}>{r.title}</div>
               <div style={{ fontSize:"0.8rem", color:"#4A4340", lineHeight:1.6, marginBottom:"1rem" }}>{r.summary.substring(0,100)}...</div>
-              <span style={{ background: r.status==="Published"?"#1A7A6E22":r.status==="Under Review"?"#B8860B22":"#C0392B22", color: r.status==="Published"?"#1A7A6E":r.status==="Under Review"?"#B8860B":"#C0392B", padding:"0.2rem 0.6rem", borderRadius:"2rem", fontSize:"0.7rem", fontWeight:600 }}>{r.status}</span>
+              <span style={{ background: r.status==="Published"?"#2A9D8F22":r.status==="Under Review"?"#D4A57422":"#E6394622", color: r.status==="Published"?"#2A9D8F":r.status==="Under Review"?"#D4A574":"#E63946", padding:"0.2rem 0.6rem", borderRadius:"2rem", fontSize:"0.7rem", fontWeight:600 }}>{r.status}</span>
             </div>
           ))}
         </div>
@@ -297,13 +272,13 @@ const HomePage = ({ data, onNav }) => {
       </section>
 
       {/* FEATURED WRITING */}
-      <section style={{ padding:"5rem 4rem", background:"#F8F5F0" }}>
+      <section style={{ padding:"clamp(2rem, 8vw, 5rem) clamp(1.5rem, 5vw, 4rem)", background:"#F9F7F3" }}>
         <SectionHeader num="02" title="Latest Writing" />
         {writing.slice(0,3).map((w,i)=>(
           <div key={i} className="writing-row">
             <div className="mono" style={{ fontSize:"0.7rem", color:"#4A4340", opacity:0.5, paddingTop:"3px" }}>{w.year}</div>
             <div>
-              <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#1A7A6E", marginBottom:"0.25rem" }}>{w.type} · {w.publication}</div>
+              <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#2A9D8F", marginBottom:"0.25rem" }}>{w.type} · {w.publication}</div>
               <div className="serif writing-row-title" style={{ fontSize:"1.1rem", marginBottom:"0.3rem", lineHeight:1.35, transition:"color 0.2s" }}>{w.title}</div>
               <div style={{ fontSize:"0.8rem", color:"#4A4340" }}>{w.excerpt.substring(0,90)}...</div>
             </div>
@@ -314,9 +289,9 @@ const HomePage = ({ data, onNav }) => {
       </section>
 
       {/* FEATURED PROJECTS */}
-      <section style={{ padding:"5rem 4rem", background:"#1A1612" }}>
+      <section style={{ padding:"clamp(2rem, 8vw, 5rem) clamp(1.5rem, 5vw, 4rem)", background:"#0F0D0B" }}>
         <SectionHeader num="03" title="Ventures & Innovation" light/>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:"1.2rem" }}>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:"1.2rem" }}>
           {projects.slice(0,3).map((p,i)=>(
             <div key={i} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"6px", padding:"1.8rem", position:"relative", overflow:"hidden" }}>
               <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#E8654A", marginBottom:"0.7rem" }}>{p.type} · {p.stage}</div>
@@ -330,10 +305,10 @@ const HomePage = ({ data, onNav }) => {
       </section>
 
       {/* CTA */}
-      <section style={{ padding:"5rem 4rem", background:"#C0392B", textAlign:"center" }}>
-        <div className="serif" style={{ fontSize:"clamp(1.8rem,3vw,2.8rem)", color:"#fff", marginBottom:"1rem", fontStyle:"italic" }}>Let's build something meaningful together.</div>
+      <section style={{ padding:"clamp(2rem, 8vw, 5rem) clamp(1.5rem, 5vw, 4rem)", background:"#E63946", textAlign:"center" }}>
+        <div className="serif" style={{ fontSize:"clamp(1.4rem, 4vw, 2.8rem)", color:"#fff", marginBottom:"1rem", fontStyle:"italic" }}>Let's build something meaningful together.</div>
         <p style={{ color:"rgba(255,255,255,0.75)", marginBottom:"2rem", fontSize:"1rem" }}>Research · Ventures · Digital Health Innovation</p>
-        <button className="btn-primary" style={{ background:"#fff", color:"#C0392B", borderColor:"#fff" }} onClick={()=>onNav("contact")}>Get In Touch</button>
+        <button className="btn-primary" style={{ background:"#fff", color:"#E63946", borderColor:"#fff" }} onClick={()=>onNav("contact")}>Get In Touch</button>
       </section>
     </div>
   );
@@ -343,18 +318,18 @@ const HomePage = ({ data, onNav }) => {
 const AboutPage = ({ data }) => {
   const { profile, about } = data;
   return (
-    <div className="fade-in" style={{ padding:"4rem clamp(1.5rem,5vw,5rem)" }}>
+    <div className="fade-in" style={{ padding:"clamp(2rem, 8vw, 4rem) clamp(1.5rem, 5vw, 5rem)" }}>
       <SectionHeader num="01" title="About Me"/>
-      <div style={{ display:"grid", gridTemplateColumns:"2fr 1fr", gap:"4rem", marginBottom:"4rem", alignItems:"start" }}>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(300px, 1fr))", gap:"clamp(2rem, 5vw, 4rem)", marginBottom:"4rem", alignItems:"start" }}>
         <div>
           {about.bio.split("\n\n").map((p,i)=>(
             <p key={i} style={{ color:"#4A4340", marginBottom:"1.2rem", fontSize:"1.05rem", lineHeight:1.8 }}>{p}</p>
           ))}
           <div style={{ marginTop:"2rem" }}>
-            <div className="mono" style={{ fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#1A7A6E", marginBottom:"0.8rem" }}>Research & Practice Interests</div>
+            <div className="mono" style={{ fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#2A9D8F", marginBottom:"0.8rem" }}>Research & Practice Interests</div>
             <div style={{ display:"flex", flexWrap:"wrap", gap:"0.5rem" }}>
               {about.interests.map(i=>(
-                <span key={i} style={{ background:"#F8F5F0", border:"1px solid #E8E0D5", color:"#4A4340", fontSize:"0.8rem", padding:"0.3rem 0.8rem", borderRadius:"3px", fontWeight:500 }}>{i}</span>
+                <span key={i} style={{ background:"#F9F7F3", border:"1px solid #E8E0D5", color:"#4A4340", fontSize:"0.8rem", padding:"0.3rem 0.8rem", borderRadius:"3px", fontWeight:500 }}>{i}</span>
               ))}
             </div>
           </div>
@@ -366,12 +341,12 @@ const AboutPage = ({ data }) => {
         </div>
       </div>
       <SectionHeader num="02" title="Leadership Roles"/>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))", gap:"1rem" }}>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(260px, 1fr))", gap:"1rem" }}>
         {about.leadership.map((l,i)=>(
           <div key={i} className="card">
-            <div className="mono" style={{ fontSize:"0.63rem", color:"#C0392B", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.5rem" }}>{l.year}</div>
+            <div className="mono" style={{ fontSize:"0.63rem", color:"#E63946", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.5rem" }}>{l.year}</div>
             <div style={{ fontWeight:600, marginBottom:"0.3rem" }}>{l.role}</div>
-            <div style={{ fontSize:"0.85rem", color:"#1A7A6E", fontWeight:500 }}>{l.org}</div>
+            <div style={{ fontSize:"0.85rem", color:"#2A9D8F", fontWeight:500 }}>{l.org}</div>
           </div>
         ))}
       </div>
@@ -383,7 +358,7 @@ const AboutPage = ({ data }) => {
 const CVPage = ({ data }) => {
   const { profile, education, experience, awards } = data;
   return (
-    <div className="fade-in" style={{ padding:"4rem clamp(1.5rem,5vw,5rem)" }}>
+    <div className="fade-in" style={{ padding:"clamp(2rem, 8vw, 4rem) clamp(1.5rem, 5vw, 5rem)" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"3rem", flexWrap:"wrap", gap:"1rem" }}>
         <div>
           <div className="serif" style={{ fontSize:"2.4rem", marginBottom:"0.3rem" }}>{profile.name}</div>
@@ -395,17 +370,17 @@ const CVPage = ({ data }) => {
           </a>
         )}
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"4rem" }}>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(350px, 1fr))", gap:"clamp(2rem, 5vw, 4rem)" }}>
         <div>
-          <CVSection title="Education" color="#1A7A6E">
+          <CVSection title="Education" color="#2A9D8F">
             {education.map((e,i)=><TimelineItem key={i} date={e.period} title={e.degree} sub={e.institution} desc={e.desc}/>)}
           </CVSection>
-          <CVSection title="Awards & Fellowships" color="#B8860B">
+          <CVSection title="Awards & Fellowships" color="#D4A574">
             {awards.map((a,i)=><TimelineItem key={i} date={a.year} title={a.title} sub={a.org} desc={a.desc}/>)}
           </CVSection>
         </div>
         <div>
-          <CVSection title="Experience & Leadership" color="#C0392B">
+          <CVSection title="Experience & Leadership" color="#E63946">
             {experience.map((e,i)=><TimelineItem key={i} date={e.period} title={e.role} sub={e.org} desc={e.desc}/>)}
           </CVSection>
         </div>
@@ -420,25 +395,25 @@ const ResearchPage = ({ data }) => {
   const types = ["All", ...new Set(data.research.map(r=>r.type))];
   const filtered = filter==="All" ? data.research : data.research.filter(r=>r.type===filter);
   return (
-    <div className="fade-in" style={{ padding:"4rem clamp(1.5rem,5vw,5rem)" }}>
+    <div className="fade-in" style={{ padding:"clamp(2rem, 8vw, 4rem) clamp(1.5rem, 5vw, 5rem)" }}>
       <SectionHeader num="03" title="Research & Abstracts"/>
       <div style={{ display:"flex", gap:"0.5rem", flexWrap:"wrap", marginBottom:"2.5rem" }}>
         {types.map(t=>(
-          <button key={t} onClick={()=>setFilter(t)} style={{ padding:"0.4rem 1rem", borderRadius:"2rem", border:"1.5px solid", fontFamily:"'JetBrains Mono',monospace", fontSize:"0.7rem", letterSpacing:"0.08em", cursor:"pointer", background:filter===t?"#C0392B":"transparent", color:filter===t?"#fff":"#4A4340", borderColor:filter===t?"#C0392B":"#D6CFC5", transition:"all 0.2s" }}>{t}</button>
+          <button key={t} onClick={()=>setFilter(t)} style={{ padding:"0.4rem 1rem", borderRadius:"2rem", border:"1.5px solid", fontFamily:"'JetBrains Mono',monospace", fontSize:"0.7rem", letterSpacing:"0.08em", cursor:"pointer", background:filter===t?"#E63946":"transparent", color:filter===t?"#fff":"#4A4340", borderColor:filter===t?"#E63946":"#D6CFC5", transition:"all 0.2s" }}>{t}</button>
         ))}
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:"1.2rem" }}>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:"1.2rem" }}>
         {filtered.map((r,i)=>(
           <div key={i} className="card">
-            <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#1A7A6E", marginBottom:"0.7rem" }}>◆ {r.type}</div>
+            <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#2A9D8F", marginBottom:"0.7rem" }}>◆ {r.type}</div>
             <div className="serif" style={{ fontSize:"1.1rem", marginBottom:"0.7rem", lineHeight:1.35 }}>{r.title}</div>
             <div style={{ fontSize:"0.82rem", color:"#4A4340", lineHeight:1.65, marginBottom:"1rem" }}>{r.summary}</div>
             <div style={{ display:"flex", flexWrap:"wrap", gap:"0.5rem", alignItems:"center" }}>
-              <span style={{ background: r.status==="Published"?"#1A7A6E22":r.status==="Under Review"?"#B8860B22":"#C0392B22", color: r.status==="Published"?"#1A7A6E":r.status==="Under Review"?"#B8860B":"#C0392B", padding:"0.2rem 0.7rem", borderRadius:"2rem", fontSize:"0.7rem", fontWeight:600 }}>{r.status}</span>
+              <span style={{ background: r.status==="Published"?"#2A9D8F22":r.status==="Under Review"?"#D4A57422":"#E6394622", color: r.status==="Published"?"#2A9D8F":r.status==="Under Review"?"#D4A574":"#E63946", padding:"0.2rem 0.7rem", borderRadius:"2rem", fontSize:"0.7rem", fontWeight:600 }}>{r.status}</span>
               <span className="mono" style={{ fontSize:"0.65rem", color:"#4A4340", opacity:0.5 }}>{r.year} · {r.journal}</span>
             </div>
             <div style={{ fontSize:"0.75rem", color:"#4A4340", marginTop:"0.5rem" }}>Role: <strong>{r.role}</strong></div>
-            {r.link && <a href={r.link} target="_blank" rel="noreferrer" style={{ display:"inline-flex", alignItems:"center", gap:"0.3rem", fontSize:"0.8rem", color:"#C0392B", fontWeight:600, marginTop:"0.8rem", textDecoration:"none" }}>Read →</a>}
+            {r.link && <a href={r.link} target="_blank" rel="noreferrer" style={{ display:"inline-flex", alignItems:"center", gap:"0.3rem", fontSize:"0.8rem", color:"#E63946", fontWeight:600, marginTop:"0.8rem", textDecoration:"none" }}>Read →</a>}
           </div>
         ))}
       </div>
@@ -452,18 +427,18 @@ const WritingPage = ({ data }) => {
   const types = ["All", ...new Set(data.writing.map(w=>w.type))];
   const filtered = filter==="All" ? data.writing : data.writing.filter(w=>w.type===filter);
   return (
-    <div className="fade-in" style={{ padding:"4rem clamp(1.5rem,5vw,5rem)" }}>
+    <div className="fade-in" style={{ padding:"clamp(2rem, 8vw, 4rem) clamp(1.5rem, 5vw, 5rem)" }}>
       <SectionHeader num="07" title="Writing & Articles"/>
       <div style={{ display:"flex", gap:"0.5rem", flexWrap:"wrap", marginBottom:"2.5rem" }}>
         {types.map(t=>(
-          <button key={t} onClick={()=>setFilter(t)} style={{ padding:"0.4rem 1rem", borderRadius:"2rem", border:"1.5px solid", fontFamily:"'JetBrains Mono',monospace", fontSize:"0.7rem", letterSpacing:"0.08em", cursor:"pointer", background:filter===t?"#C0392B":"transparent", color:filter===t?"#fff":"#4A4340", borderColor:filter===t?"#C0392B":"#D6CFC5", transition:"all 0.2s" }}>{t}</button>
+          <button key={t} onClick={()=>setFilter(t)} style={{ padding:"0.4rem 1rem", borderRadius:"2rem", border:"1.5px solid", fontFamily:"'JetBrains Mono',monospace", fontSize:"0.7rem", letterSpacing:"0.08em", cursor:"pointer", background:filter===t?"#E63946":"transparent", color:filter===t?"#fff":"#4A4340", borderColor:filter===t?"#E63946":"#D6CFC5", transition:"all 0.2s" }}>{t}</button>
         ))}
       </div>
       {filtered.map((w,i)=>(
         <div key={i} className="writing-row" onClick={()=>w.link && window.open(w.link,"_blank")}>
           <div className="mono" style={{ fontSize:"0.7rem", color:"#4A4340", opacity:0.5, paddingTop:"3px" }}>{w.year}</div>
           <div>
-            <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#1A7A6E", marginBottom:"0.25rem" }}>{w.type} · {w.publication}</div>
+            <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#2A9D8F", marginBottom:"0.25rem" }}>{w.type} · {w.publication}</div>
             <div className="serif writing-row-title" style={{ fontSize:"1.15rem", marginBottom:"0.4rem", lineHeight:1.35, transition:"color 0.2s" }}>{w.title}</div>
             <div style={{ fontSize:"0.82rem", color:"#4A4340", lineHeight:1.6 }}>{w.excerpt}</div>
           </div>
@@ -476,29 +451,29 @@ const WritingPage = ({ data }) => {
 
 // ─── PROJECTS PAGE ────────────────────────────────────────────────────────────
 const VenturesPage = ({ data }) => (
-  <div className="fade-in" style={{ padding:"4rem clamp(1.5rem,5vw,5rem)" }}>
+  <div className="fade-in" style={{ padding:"clamp(2rem, 8vw, 4rem) clamp(1.5rem, 5vw, 5rem)" }}>
     <SectionHeader num="04" title="Ventures & Entrepreneurship"/>
-    <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:"1.5rem" }}>
+    <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:"1.5rem" }}>
       {data.projects.map((p,i)=>(
         <div key={i} className="card">
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"1rem" }}>
-            <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#1A7A6E" }}>{p.type}</div>
-            <span style={{ background:p.stage==="Active"||p.stage==="Pilot"?"#1A7A6E22":"#B8860B22", color:p.stage==="Active"||p.stage==="Pilot"?"#1A7A6E":"#B8860B", padding:"0.15rem 0.6rem", borderRadius:"2rem", fontSize:"0.68rem", fontWeight:600 }}>{p.stage}</span>
+            <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#2A9D8F" }}>{p.type}</div>
+            <span style={{ background:p.stage==="Active"||p.stage==="Pilot"?"#2A9D8F22":"#D4A57422", color:p.stage==="Active"||p.stage==="Pilot"?"#2A9D8F":"#D4A574", padding:"0.15rem 0.6rem", borderRadius:"2rem", fontSize:"0.68rem", fontWeight:600 }}>{p.stage}</span>
           </div>
           <div className="serif" style={{ fontSize:"1.3rem", marginBottom:"1.2rem", lineHeight:1.2 }}>{p.title}</div>
           <div style={{ marginBottom:"0.8rem" }}>
-            <div className="mono" style={{ fontSize:"0.63rem", color:"#C0392B", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Problem</div>
+            <div className="mono" style={{ fontSize:"0.63rem", color:"#E63946", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Problem</div>
             <div style={{ fontSize:"0.83rem", color:"#4A4340", lineHeight:1.6 }}>{p.problem}</div>
           </div>
           <div style={{ marginBottom:"0.8rem" }}>
-            <div className="mono" style={{ fontSize:"0.63rem", color:"#1A7A6E", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Solution</div>
+            <div className="mono" style={{ fontSize:"0.63rem", color:"#2A9D8F", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Solution</div>
             <div style={{ fontSize:"0.83rem", color:"#4A4340", lineHeight:1.6 }}>{p.solution}</div>
           </div>
           <div style={{ marginBottom:"1rem" }}>
-            <div className="mono" style={{ fontSize:"0.63rem", color:"#B8860B", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Impact</div>
+            <div className="mono" style={{ fontSize:"0.63rem", color:"#D4A574", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Impact</div>
             <div style={{ fontSize:"0.83rem", color:"#4A4340", lineHeight:1.6 }}>{p.impact}</div>
           </div>
-          {p.collaborating && <div style={{ display:"inline-flex", alignItems:"center", gap:"0.4rem", fontSize:"0.75rem", color:"#C0392B", border:"1px solid #C0392B33", padding:"0.3rem 0.8rem", borderRadius:"3px", background:"#C0392B08" }}>🤝 Open to Collaborate</div>}
+          {p.collaborating && <div style={{ display:"inline-flex", alignItems:"center", gap:"0.4rem", fontSize:"0.75rem", color:"#E63946", border:"1px solid #E6394633", padding:"0.3rem 0.8rem", borderRadius:"3px", background:"#E6394608" }}>🤝 Open to Collaborate</div>}
         </div>
       ))}
     </div>
@@ -507,9 +482,9 @@ const VenturesPage = ({ data }) => (
 
 // ─── PRESENTATIONS PAGE ───────────────────────────────────────────────────────
 const SpeakingPage = ({ data }) => (
-  <div className="fade-in" style={{ padding:"4rem clamp(1.5rem,5vw,5rem)" }}>
+  <div className="fade-in" style={{ padding:"clamp(2rem, 8vw, 4rem) clamp(1.5rem, 5vw, 5rem)" }}>
     <SectionHeader num="08" title="Speaking & Presentations"/>
-    <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))", gap:"1.2rem" }}>
+    <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(280px, 1fr))", gap:"1.2rem" }}>
       {data.presentations.map((p,i)=>(
         <div key={i} style={{ background:"#1A1612", borderRadius:"6px", padding:"2rem", position:"relative", overflow:"hidden", transition:"transform 0.2s" }} onMouseEnter={e=>e.currentTarget.style.transform="translateY(-3px)"} onMouseLeave={e=>e.currentTarget.style.transform=""}>
           <div style={{ position:"absolute", bottom:"-1rem", right:"0.5rem", fontFamily:"'DM Serif Display',serif", fontSize:"6rem", color:"#fff", opacity:0.04, lineHeight:1, pointerEvents:"none" }}>{String(i+1).padStart(2,"0")}</div>
@@ -530,19 +505,19 @@ const SpeakingPage = ({ data }) => (
 // ─── INITIATIVES PAGE ────────────────────────────────────────────────────────
 const InitiativesPage = ({ data }) => {
   const initiatives = [
-    { title: "SRH Advocacy & Policy", icon: "🏛️", color: "#C0392B", type: "Policy & Advocacy", stage: "Active", desc: "Leading evidence-based campaigns and policy briefs to advance sexual and reproductive health rights in Rwanda and across East Africa. Working with civil society, student networks, and government stakeholders to drive systemic change.", impact: "Policy briefs distributed to Ministry of Health; 10,000+ youth reached through campaigns." },
-    { title: "Community Health Equity", icon: "🤝", color: "#1A7A6E", type: "Community Initiative", stage: "Active", desc: "Building grassroots programs that address social determinants of health in underserved communities, with a focus on rural Rwanda and peri-urban populations.", impact: "Ongoing partnerships with 3 community health worker networks." },
-    { title: "Digital Health Literacy", icon: "📱", color: "#B8860B", type: "Education Initiative", stage: "Pilot", desc: "Training young people and community health workers to leverage digital tools for health information access, telemedicine, and self-advocacy.", impact: "First cohort of 80 participants trained across 2 districts." },
+    { title: "SRH Advocacy & Policy", icon: "🏛️", color: "#E63946", type: "Policy & Advocacy", stage: "Active", desc: "Leading evidence-based campaigns and policy briefs to advance sexual and reproductive health rights in Rwanda and across East Africa. Working with civil society, student networks, and government stakeholders to drive systemic change.", impact: "Policy briefs distributed to Ministry of Health; 10,000+ youth reached through campaigns." },
+    { title: "Community Health Equity", icon: "🤝", color: "#2A9D8F", type: "Community Initiative", stage: "Active", desc: "Building grassroots programs that address social determinants of health in underserved communities, with a focus on rural Rwanda and peri-urban populations.", impact: "Ongoing partnerships with 3 community health worker networks." },
+    { title: "Digital Health Literacy", icon: "📱", color: "#D4A574", type: "Education Initiative", stage: "Pilot", desc: "Training young people and community health workers to leverage digital tools for health information access, telemedicine, and self-advocacy.", impact: "First cohort of 80 participants trained across 2 districts." },
     { title: "Global Health Equity Journalism", icon: "✍️", color: "#2C3E50", type: "Media & Advocacy", stage: "Active", desc: "Publishing op-eds, commentaries, and essays in African and international health media to shift narratives around health equity, reproductive rights, and digital health in low-resource settings.", impact: "4+ publications across global health platforms." },
   ];
 
   return (
-    <div className="fade-in" style={{ padding:"4rem clamp(1.5rem,5vw,5rem)" }}>
+    <div className="fade-in" style={{ padding:"clamp(2rem, 8vw, 4rem) clamp(1.5rem, 5vw, 5rem)" }}>
       <SectionHeader num="05" title="Initiatives & Advocacy"/>
       <p style={{ color:"#4A4340", fontSize:"1rem", lineHeight:1.8, maxWidth:"680px", marginBottom:"3rem" }}>
         Beyond research and clinical work, I lead and contribute to initiatives that tackle systemic barriers to health equity — from policy advocacy to community education and media campaigns.
       </p>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:"1.5rem" }}>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:"1.5rem" }}>
         {initiatives.map((item, i) => (
           <div key={i} className="card" style={{ borderTop:`3px solid ${item.color}` }}>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"1rem" }}>
@@ -553,7 +528,7 @@ const InitiativesPage = ({ data }) => {
             <div className="serif" style={{ fontSize:"1.2rem", marginBottom:"0.8rem", lineHeight:1.25 }}>{item.title}</div>
             <div style={{ fontSize:"0.83rem", color:"#4A4340", lineHeight:1.65, marginBottom:"1rem" }}>{item.desc}</div>
             <div style={{ borderTop:"1px solid #E8E0D5", paddingTop:"0.8rem" }}>
-              <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", color:"#B8860B", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Impact</div>
+              <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", color:"#D4A574", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Impact</div>
               <div style={{ fontSize:"0.8rem", color:"#4A4340" }}>{item.impact}</div>
             </div>
           </div>
@@ -621,7 +596,7 @@ const ContactPage = ({ data }) => {
   };
 
   const directContacts = [
-    { platform:"email",    label:"Email",      value: profile.email,    href:`mailto:${profile.email}`,                                    color:"#C0392B", show: !!profile.email },
+    { platform:"email",    label:"Email",      value: profile.email,    href:`mailto:${profile.email}`,                                    color:"#E63946", show: !!profile.email },
     { platform:"whatsapp", label:"WhatsApp",   value: profile.whatsapp, href:`https://wa.me/${(profile.whatsapp||"").replace(/\D/g,"")}`,   color:"#25D366", show: !!profile.whatsapp },
     { platform:"linkedin", label:"LinkedIn",   value: profile.linkedin, href:`https://${profile.linkedin}`,                                color:"#0A66C2", show: !!profile.linkedin },
     { platform:"twitter",  label:"X / Twitter",value: profile.twitter,  href:`https://twitter.com/${(profile.twitter||"").replace("@","")}`,color:"#000",    show: !!profile.twitter },
@@ -657,36 +632,36 @@ const ContactPage = ({ data }) => {
   );
 
   return (
-    <div className="fade-in" style={{ background:"#F8F5F0" }}>
+    <div className="fade-in" style={{ background:"#F9F7F3" }}>
 
       {/* HERO BAND */}
-      <div style={{ background:"linear-gradient(135deg,#1A1612 0%,#2C1810 100%)", padding:"4rem clamp(1.5rem,5vw,5rem) 3rem" }}>
+      <div style={{ background:"linear-gradient(135deg,#0F0D0B 0%,#2C1810 100%)", padding:"clamp(2rem, 8vw, 4rem) clamp(1.5rem, 5vw, 5rem)" }}>
         <div style={{ maxWidth:"1100px", margin:"0 auto" }}>
-          <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.68rem", letterSpacing:"0.16em", textTransform:"uppercase", color:"#C0392B", marginBottom:"1rem" }}>10 — Contact</div>
-          <h1 className="serif" style={{ fontSize:"clamp(2rem,4vw,3.2rem)", color:"#fff", lineHeight:1.1, marginBottom:"1rem" }}>
+          <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.68rem", letterSpacing:"0.16em", textTransform:"uppercase", color:"#E63946", marginBottom:"1rem" }}>10 — Contact</div>
+          <h1 className="serif" style={{ fontSize:"clamp(1.8rem, 4vw, 3.2rem)", color:"#fff", lineHeight:1.1, marginBottom:"1rem" }}>
             Let's build something<br/><em style={{ color:"#E8654A" }}>meaningful together.</em>
           </h1>
-          <p style={{ fontSize:"1rem", color:"rgba(255,255,255,0.5)", maxWidth:"500px", lineHeight:1.7 }}>
+          <p style={{ fontSize:"clamp(0.9rem, 2vw, 1rem)", color:"rgba(255,255,255,0.5)", maxWidth:"500px", lineHeight:1.7 }}>
             Whether you're a researcher, policy maker, fellow student, or organization — I'm open to collaboration, speaking, and new opportunities.
           </p>
           {(profile.openToCollaboration || profile.openToWork) && (
             <div style={{ display:"flex", gap:"0.6rem", marginTop:"1.5rem", flexWrap:"wrap" }}>
-              {profile.openToCollaboration && <span style={{ fontSize:"0.75rem", background:"#1A7A6E22", color:"#1A7A6E", border:"1px solid #1A7A6E55", padding:"0.3rem 0.8rem", borderRadius:"2rem", fontWeight:600 }}>🤝 Open to Collaborate</span>}
-              {profile.openToWork && <span style={{ fontSize:"0.75rem", background:"#C0392B22", color:"#E8654A", border:"1px solid #C0392B55", padding:"0.3rem 0.8rem", borderRadius:"2rem", fontWeight:600 }}>💼 Open to Opportunities</span>}
+              {profile.openToCollaboration && <span style={{ fontSize:"0.75rem", background:"#2A9D8F22", color:"#2A9D8F", border:"1px solid #2A9D8F55", padding:"0.3rem 0.8rem", borderRadius:"2rem", fontWeight:600 }}>🤝 Open to Collaborate</span>}
+              {profile.openToWork && <span style={{ fontSize:"0.75rem", background:"#E6394622", color:"#E8654A", border:"1px solid #E6394655", padding:"0.3rem 0.8rem", borderRadius:"2rem", fontWeight:600 }}>💼 Open to Opportunities</span>}
             </div>
           )}
         </div>
       </div>
 
       {/* MAIN CONTENT */}
-      <div style={{ maxWidth:"1100px", margin:"0 auto", padding:"3.5rem clamp(1.5rem,5vw,5rem)" }}>
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"3rem", alignItems:"start" }}>
+      <div style={{ maxWidth:"1100px", margin:"0 auto", padding:"clamp(2rem, 8vw, 3.5rem) clamp(1.5rem, 5vw, 5rem)" }}>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(320px, 1fr))", gap:"clamp(2rem, 5vw, 3rem)", alignItems:"start" }}>
 
           {/* LEFT: contact channels */}
           <div>
             {/* Direct */}
             <div style={{ marginBottom:"2rem" }}>
-              <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#C0392B", marginBottom:"0.8rem" }}>Direct Contact</div>
+              <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#E63946", marginBottom:"0.8rem" }}>Direct Contact</div>
               <div style={{ display:"flex", flexDirection:"column", gap:"0.6rem" }}>
                 {directContacts.map(c=><ContactRow key={c.label} item={c}/>)}
               </div>
@@ -695,7 +670,7 @@ const ContactPage = ({ data }) => {
             {/* Academic */}
             {academicContacts.length > 0 && (
               <div style={{ marginBottom:"2rem" }}>
-                <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#1A7A6E", marginBottom:"0.8rem" }}>Academic Profiles</div>
+                <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#2A9D8F", marginBottom:"0.8rem" }}>Academic Profiles</div>
                 <div style={{ display:"flex", flexDirection:"column", gap:"0.6rem" }}>
                   {academicContacts.map(c=><ContactRow key={c.label} item={c}/>)}
                 </div>
@@ -705,7 +680,7 @@ const ContactPage = ({ data }) => {
             {/* Social */}
             {socialContacts.length > 0 && (
               <div>
-                <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#B8860B", marginBottom:"0.8rem" }}>Social Media</div>
+                <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#D4A574", marginBottom:"0.8rem" }}>Social Media</div>
                 <div style={{ display:"flex", flexDirection:"column", gap:"0.6rem" }}>
                   {socialContacts.map(c=><ContactRow key={c.label} item={c}/>)}
                 </div>
@@ -724,24 +699,24 @@ const ContactPage = ({ data }) => {
           </div>
 
           {/* RIGHT: form */}
-          <div style={{ background:"#fff", border:"1px solid #E8E0D5", borderRadius:"8px", padding:"2rem", boxShadow:"0 4px 24px rgba(0,0,0,0.05)" }}>
+          <div style={{ background:"#fff", border:"1px solid #E8E0D5", borderRadius:"8px", padding:"clamp(1.5rem, 4vw, 2rem)", boxShadow:"0 4px 24px rgba(0,0,0,0.05)" }}>
             <div className="serif" style={{ fontSize:"1.4rem", marginBottom:"0.3rem" }}>Send a Message</div>
             <p style={{ fontSize:"0.82rem", color:"#4A4340", marginBottom:"1.5rem" }}>Fill the form — it will open your email client with everything pre-filled.</p>
             {sent ? (
-              <div style={{ textAlign:"center", padding:"3rem 2rem", color:"#1A7A6E" }}>
+              <div style={{ textAlign:"center", padding:"3rem 2rem", color:"#2A9D8F" }}>
                 <div style={{ fontSize:"3rem", marginBottom:"0.75rem" }}>✅</div>
                 <div style={{ fontFamily:"'DM Serif Display',serif", fontSize:"1.3rem", marginBottom:"0.5rem" }}>Message prepared!</div>
                 <div style={{ fontSize:"0.85rem", color:"#4A4340" }}>Your email client should have opened. Thank you for reaching out.</div>
               </div>
             ) : (
               <div style={{ display:"flex", flexDirection:"column", gap:"0.9rem" }}>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.9rem" }}>
+                <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(150px, 1fr))", gap:"0.9rem" }}>
                   {[["name","Your full name","text"],["email","Your email address","email"]].map(([k,ph,t])=>(
                     <div key={k}>
                       <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#4A4340", opacity:0.5, marginBottom:"0.35rem" }}>{k}</div>
                       <input type={t} placeholder={ph} value={form[k]} onChange={e=>setForm({...form,[k]:e.target.value})}
                         style={{ padding:"0.7rem 0.9rem", border:"1.5px solid #E8E0D5", borderRadius:"4px", fontSize:"0.88rem", outline:"none", width:"100%", fontFamily:"inherit", transition:"border-color 0.2s" }}
-                        onFocus={e=>e.target.style.borderColor="#C0392B"} onBlur={e=>e.target.style.borderColor="#E8E0D5"}/>
+                        onFocus={e=>e.target.style.borderColor="#E63946"} onBlur={e=>e.target.style.borderColor="#E8E0D5"}/>
                     </div>
                   ))}
                 </div>
@@ -749,13 +724,13 @@ const ContactPage = ({ data }) => {
                   <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#4A4340", opacity:0.5, marginBottom:"0.35rem" }}>Subject</div>
                   <input type="text" placeholder="What is this about?" value={form.subject} onChange={e=>setForm({...form,subject:e.target.value})}
                     style={{ padding:"0.7rem 0.9rem", border:"1.5px solid #E8E0D5", borderRadius:"4px", fontSize:"0.88rem", outline:"none", width:"100%", fontFamily:"inherit", transition:"border-color 0.2s" }}
-                    onFocus={e=>e.target.style.borderColor="#C0392B"} onBlur={e=>e.target.style.borderColor="#E8E0D5"}/>
+                    onFocus={e=>e.target.style.borderColor="#E63946"} onBlur={e=>e.target.style.borderColor="#E8E0D5"}/>
                 </div>
                 <div>
                   <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#4A4340", opacity:0.5, marginBottom:"0.35rem" }}>Message</div>
                   <textarea placeholder="Tell me about your project, idea, or question..." value={form.message} onChange={e=>setForm({...form,message:e.target.value})} rows={6}
                     style={{ padding:"0.7rem 0.9rem", border:"1.5px solid #E8E0D5", borderRadius:"4px", fontSize:"0.88rem", outline:"none", resize:"vertical", fontFamily:"inherit", width:"100%", transition:"border-color 0.2s" }}
-                    onFocus={e=>e.target.style.borderColor="#C0392B"} onBlur={e=>e.target.style.borderColor="#E8E0D5"}/>
+                    onFocus={e=>e.target.style.borderColor="#E63946"} onBlur={e=>e.target.style.borderColor="#E8E0D5"}/>
                 </div>
                 <button className="btn-primary" onClick={handleSubmit} style={{ width:"100%", justifyContent:"center", display:"flex", alignItems:"center", gap:"0.5rem" }}>
                   Send Message →
