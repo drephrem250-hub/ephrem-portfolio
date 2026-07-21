@@ -21,7 +21,7 @@ const INITIAL_DATA = {
     googlescholar: "",
     location: "Kigali, Rwanda",
     timezone: "CAT (UTC+2)",
-    photo: "",
+    photo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' rx='36' fill='%23E9D8C8'/%3E%3Ccircle cx='200' cy='180' r='90' fill='%234A4340'/%3E%3Cpath d='M86 440c18-92 89-155 114-155 25 0 96 63 114 155' fill='%234A4340'/%3E%3Ctext x='200' y='470' text-anchor='middle' fill='%23E63946' font-size='42' font-family='Arial, sans-serif' font-weight='700'%3EED%3C/text%3E%3C/svg%3E",
     cvUrl: "",
     openToWork: true,
     openToCollaboration: true,
@@ -73,6 +73,12 @@ const INITIAL_DATA = {
     { title: "SRH-Connect", type: "Digital Health Tool", stage: "Pilot", problem: "Limited access to SRH information and services for rural youth in Rwanda.", solution: "A mobile platform providing SRH education, provider directories, and anonymous Q&A with health professionals.", impact: "Piloted with 500 users across 3 districts. 87% reported improved SRH knowledge.", collaborating: true },
     { title: "AI Triage Assistant", type: "Health Innovation", stage: "Concept", problem: "Overburdened emergency departments with inadequate triage systems in low-resource settings.", solution: "AI-powered symptom checker and triage support tool designed for community health workers.", impact: "Proof of concept validated with emergency medicine faculty.", collaborating: true },
     { title: "Health Equity Policy Brief Series", type: "Advocacy Initiative", stage: "Active", problem: "Policy makers lack accessible, evidence-based briefs on health equity issues in Rwanda.", solution: "Series of short, actionable policy briefs written for non-specialist audiences and distributed to decision-makers.", impact: "3 briefs published; distributed to Ministry of Health.", collaborating: false }
+  ],
+  initiatives: [
+    { title: "SRH Advocacy & Policy", icon: "🏛️", color: "#E63946", type: "Policy & Advocacy", stage: "Active", desc: "Leading evidence-based campaigns and policy briefs to advance sexual and reproductive health rights in Rwanda and across East Africa. Working with civil society, student networks, and government stakeholders to drive systemic change.", impact: "Policy briefs distributed to Ministry of Health; 10,000+ youth reached through campaigns." },
+    { title: "Community Health Equity", icon: "🤝", color: "#2A9D8F", type: "Community Initiative", stage: "Active", desc: "Building grassroots programs that address social determinants of health in underserved communities, with a focus on rural Rwanda and peri-urban populations.", impact: "Ongoing partnerships with 3 community health worker networks." },
+    { title: "Digital Health Literacy", icon: "📱", color: "#D4A574", type: "Education Initiative", stage: "Pilot", desc: "Training young people and community health workers to leverage digital tools for health information access, telemedicine, and self-advocacy.", impact: "First cohort of 80 participants trained across 2 districts." },
+    { title: "Global Health Equity Journalism", icon: "✍️", color: "#2C3E50", type: "Media & Advocacy", stage: "Active", desc: "Publishing op-eds, commentaries, and essays in African and international health media to shift narratives around health equity, reproductive rights, and digital health in low-resource settings.", impact: "4+ publications across global health platforms." }
   ]
 };
 
@@ -130,6 +136,23 @@ const SocialBrandIcon = ({ platform, size = 20 }) => {
 };
 
 // ─── STORAGE ─────────────────────────────────────────────────────────────────
+const DEFAULT_ADMIN_PASSWORD = "Soulmate@250";
+const ADMIN_PASSWORD_STORAGE_KEY = "ephrem_portfolio_admin_password";
+
+const getStoredAdminPassword = () => {
+  try {
+    return localStorage.getItem(ADMIN_PASSWORD_STORAGE_KEY) || DEFAULT_ADMIN_PASSWORD;
+  } catch {
+    return DEFAULT_ADMIN_PASSWORD;
+  }
+};
+
+const setStoredAdminPassword = (password) => {
+  try {
+    localStorage.setItem(ADMIN_PASSWORD_STORAGE_KEY, password);
+  } catch {}
+};
+
 const useStorage = () => {
   const [data, setData] = useState(INITIAL_DATA);
   useEffect(() => {
@@ -145,9 +168,6 @@ const useStorage = () => {
   };
   return [data, save];
 };
-
-// ─── ADMIN PASSWORD ──────────────────────────────────────────────────────────
-const ADMIN_PASS = "ephrem2025";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // PORTFOLIO SITE
@@ -213,9 +233,13 @@ const HomePage = ({ data, onNav }) => {
             {profile.name.split(" ")[0]}<br/>
             <em style={{ color:"#E63946" }}>{profile.name.split(" ").slice(1).join(" ")}</em>
           </h1>
-          <p className="serif" style={{ fontSize:"clamp(0.9rem, 2vw, 1.15rem)", fontStyle:"italic", color:"#4A4340", maxWidth:"440px", marginBottom:"2rem", lineHeight:1.6 }}>
-            {profile.tagline.substring(0, 120)}...
+          <p className="serif" style={{ fontSize:"clamp(0.9rem, 2vw, 1.15rem)", fontStyle:"italic", color:"#4A4340", maxWidth:"460px", marginBottom:"1rem", lineHeight:1.7 }}>
+            {profile.tagline}
           </p>
+          <div style={{ display:"inline-flex", alignItems:"center", gap:"0.6rem", padding:"0.65rem 0.95rem", borderRadius:"999px", background:"rgba(255,255,255,0.75)", border:"1px solid #E8E0D5", marginBottom:"2rem", width:"fit-content", boxShadow:"0 8px 24px rgba(15,13,11,0.05)" }}>
+            <span style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#E63946" }}></span>
+            <span className="mono" style={{ fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#4A4340" }}>Research-led • Community-focused • Built for impact</span>
+          </div>
           <div style={{ display:"flex", gap:"0.6rem", flexWrap:"wrap", marginBottom:"2.5rem" }}>
             {["Medicine","Digital Health","SRH Advocacy","Research"].map((p,i)=>(
               <span key={p} className="pill" style={{ background:["#E63946","#2A9D8F","#D4A574","#2C3E50"][i], color:"#fff" }}>{p}</span>
@@ -229,14 +253,7 @@ const HomePage = ({ data, onNav }) => {
         </div>
         <div style={{ background:"linear-gradient(135deg,#F0E9E0,#E8D5C4)", display:"flex", alignItems:"center", justifyContent:"center", position:"relative", overflow:"hidden", minHeight:"400px" }}>
           <div style={{ position:"absolute", width:"420px", height:"420px", borderRadius:"50%", background:"radial-gradient(circle,#E6394622,transparent)", animation:"pulse 6s ease-in-out infinite" }}></div>
-          <div style={{ width:"280px", height:"340px", borderRadius:"12px", background: profile.photo ? `url(${profile.photo}) center/cover` : "linear-gradient(160deg,#F0E9E0,#D6CFC5)", border:"2px solid #D6CFC5", boxShadow:"20px 20px 60px rgba(0,0,0,0.12)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", position:"relative", zIndex:2 }}>
-            {!profile.photo && (
-              <>
-                <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="24" r="14" stroke="#4A4340" strokeWidth="2"/><path d="M6 58c0-14.359 11.641-26 26-26s26 11.641 26 26" stroke="#4A4340" strokeWidth="2" strokeLinecap="round"/></svg>
-                <div className="mono" style={{ fontSize:"0.6rem", color:"#4A4340", marginTop:"0.8rem", opacity:0.5, letterSpacing:"0.1em" }}>ADD PHOTO IN ADMIN</div>
-              </>
-            )}
-          </div>
+          <ProfilePhoto photo={profile.photo} name={profile.name} />
           <div style={{ position:"absolute", bottom:"20%", left:"8%", background:"#fff", border:"1px solid #E8E0D5", borderRadius:"6px", padding:"0.8rem 1.2rem", boxShadow:"8px 8px 24px rgba(0,0,0,0.08)", zIndex:3 }}>
             <div className="serif" style={{ fontSize:"1.8rem", color:"#E63946", lineHeight:1 }}>{data.research.length}</div>
             <div style={{ fontSize:"0.72rem", color:"#4A4340", marginTop:"0.15rem", fontWeight:500 }}>Research Projects</div>
@@ -280,7 +297,12 @@ const HomePage = ({ data, onNav }) => {
             <div>
               <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#2A9D8F", marginBottom:"0.25rem" }}>{w.type} · {w.publication}</div>
               <div className="serif writing-row-title" style={{ fontSize:"1.1rem", marginBottom:"0.3rem", lineHeight:1.35, transition:"color 0.2s" }}>{w.title}</div>
-              <div style={{ fontSize:"0.8rem", color:"#4A4340" }}>{w.excerpt.substring(0,90)}...</div>
+              <div style={{ fontSize:"0.8rem", color:"#4A4340", marginBottom:"0.6rem" }}>{w.excerpt.substring(0,90)}...</div>
+              {w.link && (
+                <a href={w.link} target="_blank" rel="noreferrer" style={{ color:"#E63946", fontWeight:600, fontSize:"0.8rem", textDecoration:"none" }}>
+                  Read article →
+                </a>
+              )}
             </div>
             <div className="arrow">→</div>
           </div>
@@ -440,7 +462,12 @@ const WritingPage = ({ data }) => {
           <div>
             <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#2A9D8F", marginBottom:"0.25rem" }}>{w.type} · {w.publication}</div>
             <div className="serif writing-row-title" style={{ fontSize:"1.15rem", marginBottom:"0.4rem", lineHeight:1.35, transition:"color 0.2s" }}>{w.title}</div>
-            <div style={{ fontSize:"0.82rem", color:"#4A4340", lineHeight:1.6 }}>{w.excerpt}</div>
+            <div style={{ fontSize:"0.82rem", color:"#4A4340", lineHeight:1.6, marginBottom:"0.6rem" }}>{w.excerpt}</div>
+            {w.link && (
+              <a href={w.link} target="_blank" rel="noreferrer" style={{ color:"#E63946", fontWeight:600, fontSize:"0.8rem", textDecoration:"none" }}>
+                Read article →
+              </a>
+            )}
           </div>
           <div className="arrow">→</div>
         </div>
@@ -504,12 +531,7 @@ const SpeakingPage = ({ data }) => (
 
 // ─── INITIATIVES PAGE ────────────────────────────────────────────────────────
 const InitiativesPage = ({ data }) => {
-  const initiatives = [
-    { title: "SRH Advocacy & Policy", icon: "🏛️", color: "#E63946", type: "Policy & Advocacy", stage: "Active", desc: "Leading evidence-based campaigns and policy briefs to advance sexual and reproductive health rights in Rwanda and across East Africa. Working with civil society, student networks, and government stakeholders to drive systemic change.", impact: "Policy briefs distributed to Ministry of Health; 10,000+ youth reached through campaigns." },
-    { title: "Community Health Equity", icon: "🤝", color: "#2A9D8F", type: "Community Initiative", stage: "Active", desc: "Building grassroots programs that address social determinants of health in underserved communities, with a focus on rural Rwanda and peri-urban populations.", impact: "Ongoing partnerships with 3 community health worker networks." },
-    { title: "Digital Health Literacy", icon: "📱", color: "#D4A574", type: "Education Initiative", stage: "Pilot", desc: "Training young people and community health workers to leverage digital tools for health information access, telemedicine, and self-advocacy.", impact: "First cohort of 80 participants trained across 2 districts." },
-    { title: "Global Health Equity Journalism", icon: "✍️", color: "#2C3E50", type: "Media & Advocacy", stage: "Active", desc: "Publishing op-eds, commentaries, and essays in African and international health media to shift narratives around health equity, reproductive rights, and digital health in low-resource settings.", impact: "4+ publications across global health platforms." },
-  ];
+  const initiatives = data.initiatives || [];
 
   return (
     <div className="fade-in" style={{ padding:"clamp(2rem, 8vw, 4rem) clamp(1.5rem, 5vw, 5rem)" }}>
@@ -752,6 +774,8 @@ const AdminDashboard = ({ data, onSave, onExit }) => {
   const [section, setSection] = useState("profile");
   const [localData, setLocalData] = useState(JSON.parse(JSON.stringify(data)));
   const [saved, setSaved] = useState(false);
+  const [passwordState, setPasswordState] = useState({ current:"", next:"", confirm:"" });
+  const [passwordMessage, setPasswordMessage] = useState("");
 
   const handleSave = () => {
     onSave(localData);
@@ -766,6 +790,38 @@ const AdminDashboard = ({ data, onSave, onExit }) => {
     for (let i = 0; i < parts.length - 1; i++) obj = obj[parts[i]];
     obj[parts[parts.length-1]] = value;
     setLocalData(d);
+  };
+
+  const handlePasswordChange = () => {
+    const current = passwordState.current.trim();
+    const next = passwordState.next.trim();
+    const confirm = passwordState.confirm.trim();
+    const expected = getStoredAdminPassword();
+
+    if (current && current !== expected) {
+      setPasswordMessage("Current password is incorrect.");
+      return;
+    }
+
+    if (!next || next.length < 8) {
+      setPasswordMessage("New password must be at least 8 characters.");
+      return;
+    }
+
+    if (next !== confirm) {
+      setPasswordMessage("The new passwords do not match.");
+      return;
+    }
+
+    setStoredAdminPassword(next);
+    setPasswordState({ current:"", next:"", confirm:"" });
+    setPasswordMessage("Password updated successfully.");
+  };
+
+  const handlePasswordReset = () => {
+    setStoredAdminPassword(DEFAULT_ADMIN_PASSWORD);
+    setPasswordState({ current:"", next:"", confirm:"" });
+    setPasswordMessage("Password reset to the default value: Soulmate@250");
   };
 
   const navItems = [
@@ -824,6 +880,19 @@ const AdminDashboard = ({ data, onSave, onExit }) => {
 
           {section==="profile" && (
             <AdminSection title="Profile & Identity">
+              <div className="admin-card">
+                <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#C0392B", marginBottom:"0.8rem" }}>Security</div>
+                <div style={{ display:"grid", gap:"0.75rem" }}>
+                  <Field label="Current Password (optional for reset)" value={passwordState.current} onChange={v=>setPasswordState({...passwordState,current:v})}/>
+                  <Field label="New Password" value={passwordState.next} onChange={v=>setPasswordState({...passwordState,next:v})}/>
+                  <Field label="Confirm New Password" value={passwordState.confirm} onChange={v=>setPasswordState({...passwordState,confirm:v})}/>
+                  <div style={{ display:"flex", gap:"0.75rem", flexWrap:"wrap" }}>
+                    <button className="admin-btn-add" onClick={handlePasswordChange}><Icon name="save" size={14}/> Change Password</button>
+                    <button className="admin-btn-del" onClick={handlePasswordReset}>Reset to Default</button>
+                  </div>
+                  {passwordMessage && <div style={{ fontSize:"0.8rem", color:"#1A7A6E" }}>{passwordMessage}</div>}
+                </div>
+              </div>
 
               {/* BASIC */}
               <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#C0392B", marginBottom:"0.8rem", marginTop:"0.5rem" }}>Basic Info</div>
@@ -1012,14 +1081,23 @@ const AdminDashboard = ({ data, onSave, onExit }) => {
 
           {section==="initiatives" && (
             <AdminSection title="Initiatives & Advocacy">
-              <p style={{ fontSize:"0.82rem", color:"rgba(255,255,255,0.4)", marginBottom:"1.5rem", lineHeight:1.6 }}>
-                Initiatives are currently built from static content in the Initiatives page. Use the fields below to customize how the Initiatives section is described in the About and Contact pages, or add advocacy/policy items to your Writing section for searchable records.
-              </p>
-              <Field label="SRH Advocacy description (used on About page)" value={localData.about.bio} onChange={v=>update("about.bio",v)} multiline rows={5}/>
-              <div style={{ marginTop:"1.2rem" }}>
-                <label className="admin-label">Advocacy & Initiative Interests (one per line)</label>
-                <textarea className="admin-input" rows={5} value={localData.about.interests.join("\n")} onChange={e=>update("about.interests",e.target.value.split("\n").filter(Boolean))} style={{ resize:"vertical" }}/>
-              </div>
+              {localData.initiatives.map((item,i)=>(
+                <div key={i} className="admin-card">
+                  <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"1rem" }}>
+                    <span style={{ fontFamily:"'DM Serif Display',serif", fontSize:"1rem" }}>{item.title||`Initiative ${i+1}`}</span>
+                    <button className="admin-btn-del" onClick={()=>update("initiatives",localData.initiatives.filter((_,j)=>j!==i))}>Remove</button>
+                  </div>
+                  <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.75rem" }}>
+                    <Field label="Title" value={item.title} onChange={v=>{const a=[...localData.initiatives];a[i]={...a[i],title:v};update("initiatives",a)}}/>
+                    <Field label="Type" value={item.type} onChange={v=>{const a=[...localData.initiatives];a[i]={...a[i],type:v};update("initiatives",a)}}/>
+                    <Field label="Stage" value={item.stage} onChange={v=>{const a=[...localData.initiatives];a[i]={...a[i],stage:v};update("initiatives",a)}}/>
+                    <Field label="Icon" value={item.icon} onChange={v=>{const a=[...localData.initiatives];a[i]={...a[i],icon:v};update("initiatives",a)}}/>
+                  </div>
+                  <Field label="Description" value={item.desc} onChange={v=>{const a=[...localData.initiatives];a[i]={...a[i],desc:v};update("initiatives",a)}} multiline/>
+                  <Field label="Impact" value={item.impact} onChange={v=>{const a=[...localData.initiatives];a[i]={...a[i],impact:v};update("initiatives",a)}} multiline/>
+                </div>
+              ))}
+              <button className="admin-btn-add" onClick={()=>update("initiatives",[...localData.initiatives,{title:"",icon:"",color:"#E63946",type:"",stage:"Active",desc:"",impact:""}])}><Icon name="plus" size={14}/> Add Initiative</button>
             </AdminSection>
           )}
 
@@ -1083,6 +1161,22 @@ const AdminDashboard = ({ data, onSave, onExit }) => {
 };
 
 // ─── SHARED COMPONENTS ────────────────────────────────────────────────────────
+const ProfilePhoto = ({ photo, name }) => {
+  const [imgError, setImgError] = useState(false);
+  return (
+    <div style={{ width:"280px", height:"340px", borderRadius:"12px", background:"linear-gradient(160deg,#F0E9E0,#D6CFC5)", border:"2px solid #D6CFC5", boxShadow:"20px 20px 60px rgba(0,0,0,0.12)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", position:"relative", zIndex:2, overflow:"hidden" }}>
+      {photo && !imgError ? (
+        <img src={photo} alt={name} loading="lazy" decoding="async" style={{ width:"100%", height:"100%", objectFit:"cover" }} onError={()=>setImgError(true)} />
+      ) : (
+        <>
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="24" r="14" stroke="#4A4340" strokeWidth="2"/><path d="M6 58c0-14.359 11.641-26 26-26s26 11.641 26 26" stroke="#4A4340" strokeWidth="2" strokeLinecap="round"/></svg>
+          <div className="mono" style={{ fontSize:"0.6rem", color:"#4A4340", marginTop:"0.8rem", opacity:0.5, letterSpacing:"0.1em" }}>ADD PHOTO IN ADMIN</div>
+        </>
+      )}
+    </div>
+  );
+};
+
 const SectionHeader = ({ num, title, light }) => (
   <div style={{ display:"flex", alignItems:"baseline", gap:"1.2rem", marginBottom:"2.5rem", borderBottom:`2px solid ${light?"rgba(255,255,255,0.15)":"#1A1612"}`, paddingBottom:"0.8rem" }}>
     <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.7rem", color:"#C0392B", letterSpacing:"0.1em" }}>{num}</span>
@@ -1218,8 +1312,12 @@ const AdminLogin = ({ onLogin, onCancel }) => {
   const [pass, setPass] = useState("");
   const [err, setErr] = useState(false);
   const attempt = () => {
-    if (pass === ADMIN_PASS) { onLogin(); }
+    if (pass === getStoredAdminPassword()) { onLogin(); }
     else { setErr(true); setTimeout(()=>setErr(false),2000); }
+  };
+  const resetToDefault = () => {
+    setStoredAdminPassword(DEFAULT_ADMIN_PASSWORD);
+    onLogin();
   };
   return (
     <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.85)", zIndex:9999, display:"flex", alignItems:"center", justifyContent:"center" }}>
@@ -1232,7 +1330,7 @@ const AdminLogin = ({ onLogin, onCancel }) => {
           <button onClick={attempt} style={{ flex:1, background:"#C0392B", color:"#fff", border:"none", borderRadius:"4px", padding:"0.75rem", cursor:"pointer", fontWeight:600 }}>Enter</button>
           <button onClick={onCancel} style={{ background:"#2E2A27", color:"rgba(255,255,255,0.5)", border:"none", borderRadius:"4px", padding:"0.75rem 1rem", cursor:"pointer" }}>Cancel</button>
         </div>
-        <div style={{ marginTop:"1.5rem", fontSize:"0.72rem", color:"rgba(255,255,255,0.2)", fontFamily:"'JetBrains Mono',monospace", textAlign:"center" }}>Default password: ephrem2025</div>
+        <button onClick={resetToDefault} style={{ marginTop:"0.75rem", width:"100%", background:"transparent", color:"#C0392B", border:"1px solid #C0392B33", borderRadius:"4px", padding:"0.65rem", cursor:"pointer" }}>Reset to default password</button>
       </div>
     </div>
   );
