@@ -1,4 +1,4 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
-Sitemap: https://ephrem-portfolio.vercel.app/sitemap.xml
+Sitemap: https://project-r4mzv.vercel.app/sitemap.xml
