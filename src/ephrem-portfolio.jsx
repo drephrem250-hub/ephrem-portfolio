@@ -163,6 +163,21 @@ const setStoredAdminPassword = (password) => {
   } catch {}
 };
 
+const verifyAdminPassword = async (password) => {
+  try {
+    const response = await fetch('/api/admin-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+
+    const data = await response.json();
+    return response.ok && data.ok;
+  } catch {
+    return false;
+  }
+};
+
 const useStorage = () => {
   const [data, setData] = useState(INITIAL_DATA);
   useEffect(() => {
@@ -1319,9 +1334,14 @@ const SiteFooter = ({ data, onNav }) => {
 const AdminLogin = ({ onLogin, onCancel }) => {
   const [pass, setPass] = useState("");
   const [err, setErr] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const attempt = () => {
-    if (pass === getStoredAdminPassword()) { onLogin(); }
+  const attempt = async () => {
+    setLoading(true);
+    const ok = await verifyAdminPassword(pass);
+    setLoading(false);
+
+    if (ok) { onLogin(); }
     else {
       setErr(true);
       setTimeout(()=>setErr(false),2000);
@@ -1336,7 +1356,7 @@ const AdminLogin = ({ onLogin, onCancel }) => {
         <input type="password" placeholder="Password" value={pass} onChange={e=>setPass(e.target.value)} onKeyDown={e=>e.key==="Enter"&&attempt()} style={{ width:"100%", background:"#0F0D0B", border:`1.5px solid ${err?"#C0392B":"#2E2A27"}`, borderRadius:"4px", padding:"0.75rem 1rem", color:"#fff", fontSize:"0.9rem", outline:"none", marginBottom:"1rem", fontFamily:"inherit" }} autoFocus/>
         {err && <div style={{ color:"#C0392B", fontSize:"0.8rem", marginBottom:"0.8rem" }}>Incorrect password. Try again.</div>}
         <div style={{ display:"flex", gap:"0.75rem" }}>
-          <button onClick={attempt} style={{ flex:1, background:"#C0392B", color:"#fff", border:"none", borderRadius:"4px", padding:"0.75rem", cursor:"pointer", fontWeight:600 }}>Enter</button>
+          <button onClick={attempt} disabled={loading} style={{ flex:1, background:"#C0392B", color:"#fff", border:"none", borderRadius:"4px", padding:"0.75rem", cursor:"pointer", fontWeight:600, opacity: loading ? 0.6 : 1 }}> {loading ? 'Checking...' : 'Enter'} </button>
           <button onClick={onCancel} style={{ background:"#2E2A27", color:"rgba(255,255,255,0.5)", border:"none", borderRadius:"4px", padding:"0.75rem 1rem", cursor:"pointer" }}>Cancel</button>
         </div>
       </div>
