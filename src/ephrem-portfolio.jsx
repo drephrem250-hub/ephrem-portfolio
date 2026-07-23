@@ -136,20 +136,30 @@ const SocialBrandIcon = ({ platform, size = 20 }) => {
 };
 
 // ─── STORAGE ─────────────────────────────────────────────────────────────────
-const DEFAULT_ADMIN_PASSWORD = "Soulmate@250";
+const DEFAULT_ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD || "Soulmate@250";
 const ADMIN_PASSWORD_STORAGE_KEY = "ephrem_portfolio_admin_password";
+let adminPasswordInMemory = DEFAULT_ADMIN_PASSWORD;
+
+const isStrongAdminPassword = (password) => {
+  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{12,}$/.test(password);
+};
 
 const getStoredAdminPassword = () => {
   try {
-    return localStorage.getItem(ADMIN_PASSWORD_STORAGE_KEY) || DEFAULT_ADMIN_PASSWORD;
-  } catch {
-    return DEFAULT_ADMIN_PASSWORD;
-  }
+    const sessionPassword = window.sessionStorage.getItem(ADMIN_PASSWORD_STORAGE_KEY);
+    if (sessionPassword) {
+      adminPasswordInMemory = sessionPassword;
+      return sessionPassword;
+    }
+  } catch {}
+
+  return adminPasswordInMemory;
 };
 
 const setStoredAdminPassword = (password) => {
+  adminPasswordInMemory = password;
   try {
-    localStorage.setItem(ADMIN_PASSWORD_STORAGE_KEY, password);
+    window.sessionStorage.setItem(ADMIN_PASSWORD_STORAGE_KEY, password);
   } catch {}
 };
 
@@ -798,13 +808,18 @@ const AdminDashboard = ({ data, onSave, onExit }) => {
     const confirm = passwordState.confirm.trim();
     const expected = getStoredAdminPassword();
 
-    if (current && current !== expected) {
+    if (!current) {
+      setPasswordMessage("Current password is required.");
+      return;
+    }
+
+    if (current !== expected) {
       setPasswordMessage("Current password is incorrect.");
       return;
     }
 
-    if (!next || next.length < 8) {
-      setPasswordMessage("New password must be at least 8 characters.");
+    if (!next || !isStrongAdminPassword(next)) {
+      setPasswordMessage("New password must be at least 12 characters and include uppercase, lowercase, a number, and a symbol.");
       return;
     }
 
@@ -816,12 +831,6 @@ const AdminDashboard = ({ data, onSave, onExit }) => {
     setStoredAdminPassword(next);
     setPasswordState({ current:"", next:"", confirm:"" });
     setPasswordMessage("Password updated successfully.");
-  };
-
-  const handlePasswordReset = () => {
-    setStoredAdminPassword(DEFAULT_ADMIN_PASSWORD);
-    setPasswordState({ current:"", next:"", confirm:"" });
-    setPasswordMessage("Password reset to the default value: Soulmate@250");
   };
 
   const navItems = [
@@ -883,12 +892,11 @@ const AdminDashboard = ({ data, onSave, onExit }) => {
               <div className="admin-card">
                 <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#C0392B", marginBottom:"0.8rem" }}>Security</div>
                 <div style={{ display:"grid", gap:"0.75rem" }}>
-                  <Field label="Current Password (optional for reset)" value={passwordState.current} onChange={v=>setPasswordState({...passwordState,current:v})}/>
+                  <Field label="Current Password" value={passwordState.current} onChange={v=>setPasswordState({...passwordState,current:v})}/>
                   <Field label="New Password" value={passwordState.next} onChange={v=>setPasswordState({...passwordState,next:v})}/>
                   <Field label="Confirm New Password" value={passwordState.confirm} onChange={v=>setPasswordState({...passwordState,confirm:v})}/>
                   <div style={{ display:"flex", gap:"0.75rem", flexWrap:"wrap" }}>
                     <button className="admin-btn-add" onClick={handlePasswordChange}><Icon name="save" size={14}/> Change Password</button>
-                    <button className="admin-btn-del" onClick={handlePasswordReset}>Reset to Default</button>
                   </div>
                   {passwordMessage && <div style={{ fontSize:"0.8rem", color:"#1A7A6E" }}>{passwordMessage}</div>}
                 </div>
@@ -1311,14 +1319,15 @@ const SiteFooter = ({ data, onNav }) => {
 const AdminLogin = ({ onLogin, onCancel }) => {
   const [pass, setPass] = useState("");
   const [err, setErr] = useState(false);
+
   const attempt = () => {
     if (pass === getStoredAdminPassword()) { onLogin(); }
-    else { setErr(true); setTimeout(()=>setErr(false),2000); }
+    else {
+      setErr(true);
+      setTimeout(()=>setErr(false),2000);
+    }
   };
-  const resetToDefault = () => {
-    setStoredAdminPassword(DEFAULT_ADMIN_PASSWORD);
-    onLogin();
-  };
+
   return (
     <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.85)", zIndex:9999, display:"flex", alignItems:"center", justifyContent:"center" }}>
       <div style={{ background:"#1A1612", border:"1px solid #2E2A27", borderRadius:"8px", padding:"2.5rem", width:"360px", fontFamily:"'DM Sans',sans-serif" }}>
@@ -1330,7 +1339,6 @@ const AdminLogin = ({ onLogin, onCancel }) => {
           <button onClick={attempt} style={{ flex:1, background:"#C0392B", color:"#fff", border:"none", borderRadius:"4px", padding:"0.75rem", cursor:"pointer", fontWeight:600 }}>Enter</button>
           <button onClick={onCancel} style={{ background:"#2E2A27", color:"rgba(255,255,255,0.5)", border:"none", borderRadius:"4px", padding:"0.75rem 1rem", cursor:"pointer" }}>Cancel</button>
         </div>
-        <button onClick={resetToDefault} style={{ marginTop:"0.75rem", width:"100%", background:"transparent", color:"#C0392B", border:"1px solid #C0392B33", borderRadius:"4px", padding:"0.65rem", cursor:"pointer" }}>Reset to default password</button>
       </div>
     </div>
   );
