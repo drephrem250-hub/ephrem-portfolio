@@ -5,8 +5,9 @@ import "./portfolio.css";
 const INITIAL_DATA = {
   profile: {
     name: "Ephrem Dushimimana",
-    title: "Medical Student | Researcher | Writer | Public Health Innovator",
-    tagline: "I am a medical student passionate about oncology, public health equity, research, and innovation. My work focuses on building solutions, writing ideas that matter, and contributing to health and community transformation in Rwanda and beyond.",
+    title: "Medical Student · Digital Health Researcher · Health-Tech Builder",
+    eyebrow: "Medical Student · Digital Health · Health Systems",
+    tagline: "I am a medical student, digital health researcher, and health-tech builder exploring how technology, evidence, and better-designed health systems can improve healthcare in Rwanda and across Africa.",
     email: "ephrem@example.com",
     phone: "+250 700 000 000",
     linkedin: "linkedin.com/in/ephremdushimimana",
@@ -25,16 +26,29 @@ const INITIAL_DATA = {
     cvUrl: "",
     openToWork: true,
     openToCollaboration: true,
-    mission: "To bridge the gap between clinical medicine, digital innovation, and community health — building equitable, technology-driven solutions that transform healthcare in Africa and beyond.",
-    vision: "A future where every person, regardless of geography or circumstance, has access to high-quality, dignified, and innovative healthcare."
+    mission: "To advance healthcare in Africa through digital health research, technology innovation, and evidence-based health systems strengthening.",
+    vision: "A future where technology, evidence, and better-designed health systems enable equitable, high-quality, and dignified healthcare across African communities.",
+    interests: ["Medicine", "Digital Health", "Health Systems", "Research"]
   },
   about: {
-    bio: "I am Ephrem Dushimimana, a medical student and public health advocate from Rwanda. My academic journey is shaped by a deep commitment to health equity, digital health innovation, and sexual and reproductive health (SRH) rights.\n\nBeyond medicine, I am a researcher, writer, and community builder. I believe that transforming healthcare requires more than clinical skills — it demands creativity, technology, and the courage to challenge the systems that keep communities underserved.",
-    interests: ["Oncology", "Digital Health", "SRH & Reproductive Rights", "Health Equity", "AI in Medicine", "Global Health Policy"],
+    bio: "I am Ephrem Dushimimana, a medical student from Rwanda committed to building better health systems through digital innovation, research, and evidence-based solutions. I believe that transforming healthcare requires combining clinical understanding, technological sophistication, and deep knowledge of health systems challenges.",
+    interests: ["Medicine", "Digital Health", "Health Systems", "Research"],
     leadership: [
-      { role: "SRH Advocacy Lead", org: "Organization Name", year: "2022–2023" },
-      { role: "Digital Health Innovator", org: "Program Name", year: "2023–Present" },
-      { role: "Student Representative", org: "Medical School Council", year: "2021–Present" }
+      { role: "Digital Health Researcher", org: "University of Rwanda / Research Lab", year: "2024–Present" },
+      { role: "Health Systems Innovator", org: "Digital Health Initiatives", year: "2023–Present" },
+      { role: "Medical Student", org: "University of Rwanda School of Medicine", year: "2021–Present" }
+    ],
+    timeline: [
+      { year: "2024", title: "Medical Education & Research", desc: "Focused on digital health research, health systems innovation, and early prototype development." },
+      { year: "2025", title: "Research & Implementation", desc: "Conducting implementation science research, building digital health prototypes, and establishing research partnerships." },
+      { year: "2026", title: "Digital Health & Health-Tech", desc: "Leading health-tech solutions development, advancing digital health research, and building an innovation ecosystem." },
+      { year: "Beyond", title: "Physician-Scientist Leadership", desc: "Advancing digital health and health systems research at scale, building teams, and enabling African health innovation." }
+    ],
+    currentlyLearning: [
+      { category: "Health Interoperability", skills: ["HL7", "FHIR", "APIs", "OpenHIE", "Health Information Exchange"] },
+      { category: "Digital Health Architecture", skills: ["Digital health platforms", "Implementation science", "Health technology assessment", "Systems design"] },
+      { category: "AI & Machine Learning", skills: ["Clinical decision support", "Responsible AI", "Health-data applications", "Diagnostic AI"] },
+      { category: "Health Systems", skills: ["Systems strengthening", "Policy analysis", "Antimicrobial resistance", "Health equity"] }
     ]
   },
   education: [
@@ -70,8 +84,9 @@ const INITIAL_DATA = {
     { title: "Designing mHealth Solutions for Marginalized Communities", type: "Workshop", event: "Health Innovation Hackathon", location: "Kampala, Uganda", year: "2023", fileUrl: "" }
   ],
   projects: [
+    { title: "RADTS", subtitle: "Rwanda Antibiotic Digital Traceability & Stewardship System", type: "Digital Health · Health Systems", stage: "Prototype", problem: "Antibiotic prescribing and stewardship require better traceability, verification and data.", solution: "A digital system designed around prescription verification, traceability, QR/token workflows and stewardship monitoring.", impact: "Mixed-methods implementation study using the RE-AIM framework. Prototype development and pilot phase.", collaborating: true, featured: true, evidence: "" },
     { title: "SRH-Connect", type: "Digital Health Tool", stage: "Pilot", problem: "Limited access to SRH information and services for rural youth in Rwanda.", solution: "A mobile platform providing SRH education, provider directories, and anonymous Q&A with health professionals.", impact: "Piloted with 500 users across 3 districts. 87% reported improved SRH knowledge.", collaborating: true },
-    { title: "AI Triage Assistant", type: "Health Innovation", stage: "Concept", problem: "Overburdened emergency departments with inadequate triage systems in low-resource settings.", solution: "AI-powered symptom checker and triage support tool designed for community health workers.", impact: "Proof of concept validated with emergency medicine faculty.", collaborating: true },
+    { title: "AI Triage Assistant", type: "Health Innovation", stage: "Prototype", problem: "Overburdened emergency departments with inadequate triage systems in low-resource settings.", solution: "AI-powered symptom checker and triage support tool designed for community health workers.", impact: "Proof of concept validated with emergency medicine faculty.", collaborating: true },
     { title: "Health Equity Policy Brief Series", type: "Advocacy Initiative", stage: "Active", problem: "Policy makers lack accessible, evidence-based briefs on health equity issues in Rwanda.", solution: "Series of short, actionable policy briefs written for non-specialist audiences and distributed to decision-makers.", impact: "3 briefs published; distributed to Ministry of Health.", collaborating: false }
   ],
   initiatives: [
@@ -200,7 +215,7 @@ const useStorage = () => {
 const PortfolioSite = ({ data, onAdminClick }) => {
   const [activePage, setActivePage] = useState("home");
   const [mobileOpen, setMobileOpen] = useState(false);
-  const navItems = ["Home","About","Research","Ventures","Initiatives","Innovation Lab","Writing","Speaking","CV","Contact"];
+  const navItems = ["Home","About","Research","Projects","Digital Health Lab","Writing","CV","Contact"];
 
   return (
     <div style={{ fontFamily: "'DM Sans', system-ui, sans-serif", background: "#F9F7F3", minHeight: "100vh", color: "#1A1612" }}>
@@ -232,11 +247,9 @@ const PortfolioSite = ({ data, onAdminClick }) => {
         {activePage==="home" && <HomePage data={data} onNav={setActivePage}/>}
         {activePage==="about" && <AboutPage data={data}/>}
         {activePage==="research" && <ResearchPage data={data}/>}
-        {activePage==="ventures" && <VenturesPage data={data}/>}
-        {activePage==="initiatives" && <InitiativesPage data={data}/>}
-        {activePage==="innovation lab" && <InnovationLabPage data={data}/>}
+        {activePage==="projects" && <ProjectsPage data={data}/>}
+        {activePage==="digital health lab" && <DigitalHealthLabPage data={data}/>}
         {activePage==="writing" && <WritingPage data={data}/>}
-        {activePage==="speaking" && <SpeakingPage data={data}/>}
         {activePage==="cv" && <CVPage data={data}/>}
         {activePage==="contact" && <ContactPage data={data}/>}
         <SiteFooter data={data} onNav={setActivePage}/>
@@ -253,7 +266,7 @@ const HomePage = ({ data, onNav }) => {
       {/* HERO */}
       <section style={{ minHeight:"calc(100vh - 60px)", display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(300px, 1fr))", background:"#F9F7F3", position:"relative", overflow:"hidden" }}>
         <div style={{ display:"flex", flexDirection:"column", justifyContent:"center", padding:"clamp(2rem, 8vw, 8rem) clamp(1.5rem, 5vw, 5rem)", position:"relative", zIndex:1 }}>
-          <div className="mono" style={{ fontSize:"0.7rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"#E63946", marginBottom:"1.2rem" }}>Medical Student · Digital Health · SRH Advocate</div>
+          <div className="mono" style={{ fontSize:"0.7rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"#E63946", marginBottom:"1.2rem" }}>Medical Student · Digital Health · Health Systems</div>
           <h1 className="serif" style={{ fontSize:"clamp(2rem, 5vw, 5.5rem)", lineHeight:1.02, marginBottom:"0.6rem" }}>
             {profile.name.split(" ")[0]}<br/>
             <em style={{ color:"#E63946" }}>{profile.name.split(" ").slice(1).join(" ")}</em>
@@ -266,7 +279,7 @@ const HomePage = ({ data, onNav }) => {
             <span className="mono" style={{ fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#4A4340" }}>Research-led • Community-focused • Built for impact</span>
           </div>
           <div style={{ display:"flex", gap:"0.6rem", flexWrap:"wrap", marginBottom:"2.5rem" }}>
-            {["Medicine","Digital Health","SRH Advocacy","Research"].map((p,i)=>(
+            {["Medicine","Digital Health","Health Systems","Research"].map((p,i)=>(
               <span key={p} className="pill" style={{ background:["#E63946","#2A9D8F","#D4A574","#2C3E50"][i], color:"#fff" }}>{p}</span>
             ))}
           </div>
@@ -279,13 +292,13 @@ const HomePage = ({ data, onNav }) => {
         <div style={{ background:"linear-gradient(135deg,#F0E9E0,#E8D5C4)", display:"flex", alignItems:"center", justifyContent:"center", position:"relative", overflow:"hidden", minHeight:"400px" }}>
           <div style={{ position:"absolute", width:"420px", height:"420px", borderRadius:"50%", background:"radial-gradient(circle,#E6394622,transparent)", animation:"pulse 6s ease-in-out infinite" }}></div>
           <ProfilePhoto photo={profile.photo} name={profile.name} />
-          <div style={{ position:"absolute", bottom:"20%", left:"8%", background:"#fff", border:"1px solid #E8E0D5", borderRadius:"6px", padding:"0.8rem 1.2rem", boxShadow:"8px 8px 24px rgba(0,0,0,0.08)", zIndex:3 }}>
-            <div className="serif" style={{ fontSize:"1.8rem", color:"#E63946", lineHeight:1 }}>{data.research.length}</div>
-            <div style={{ fontSize:"0.72rem", color:"#4A4340", marginTop:"0.15rem", fontWeight:500 }}>Research Projects</div>
+          <div style={{ position:"absolute", bottom:"20%", left:"8%", background:"#fff", border:"1px solid #E8E0D5", borderRadius:"6px", padding:"1rem 1.2rem", boxShadow:"8px 8px 24px rgba(0,0,0,0.08)", zIndex:3 }}>
+            <div className="mono" style={{ fontSize:"0.6rem", color:"#E63946", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem", fontWeight:600 }}>Exploring</div>
+            <div className="serif" style={{ fontSize:"1.1rem", color:"#1A1612", lineHeight:1.2 }}>Digital Health</div>
           </div>
-          <div style={{ position:"absolute", top:"25%", right:"8%", background:"#fff", border:"1px solid #E8E0D5", borderRadius:"6px", padding:"0.8rem 1.2rem", boxShadow:"8px 8px 24px rgba(0,0,0,0.08)", zIndex:3 }}>
-            <div className="serif" style={{ fontSize:"1.8rem", color:"#2A9D8F", lineHeight:1 }}>{data.writing.length}</div>
-            <div style={{ fontSize:"0.72rem", color:"#4A4340", marginTop:"0.15rem", fontWeight:500 }}>Published Articles</div>
+          <div style={{ position:"absolute", top:"25%", right:"8%", background:"#fff", border:"1px solid #E8E0D5", borderRadius:"6px", padding:"1rem 1.2rem", boxShadow:"8px 8px 24px rgba(0,0,0,0.08)", zIndex:3 }}>
+            <div className="mono" style={{ fontSize:"0.6rem", color:"#2A9D8F", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem", fontWeight:600 }}>Building</div>
+            <div className="serif" style={{ fontSize:"1.1rem", color:"#1A1612", lineHeight:1.2 }}>Health-Tech</div>
           </div>
         </div>
         <style>{`@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
@@ -337,25 +350,52 @@ const HomePage = ({ data, onNav }) => {
 
       {/* FEATURED PROJECTS */}
       <section style={{ padding:"clamp(2rem, 8vw, 5rem) clamp(1.5rem, 5vw, 4rem)", background:"#0F0D0B" }}>
-        <SectionHeader num="03" title="Ventures & Innovation" light/>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:"1.2rem" }}>
-          {projects.slice(0,3).map((p,i)=>(
-            <div key={i} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"6px", padding:"1.8rem", position:"relative", overflow:"hidden" }}>
-              <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#E8654A", marginBottom:"0.7rem" }}>{p.type} · {p.stage}</div>
-              <div className="serif" style={{ fontSize:"1.1rem", color:"#fff", marginBottom:"0.8rem", lineHeight:1.35 }}>{p.title}</div>
+        <SectionHeader num="03" title="Projects & Innovation" light/>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:"1.2rem", marginBottom:"2rem" }}>
+          {projects.slice(0, projects.findIndex(p => p.featured) !== -1 ? projects.findIndex(p => p.featured) + 1 : 3).map((p,i)=>(
+            <div key={i} style={{ background:"rgba(255,255,255,0.04)", border: p.featured ? "1px solid #E8654A" : "1px solid rgba(255,255,255,0.1)", borderRadius:"6px", padding:"1.8rem", position:"relative", overflow:"hidden", opacity: p.featured ? 1 : 0.9 }}>
+              {p.featured && <div style={{ position:"absolute", top:"0.8rem", right:"0.8rem", background:"#E63946", color:"#fff", padding:"0.25rem 0.6rem", borderRadius:"2px", fontSize:"0.65rem", fontWeight:600, fontFamily:"'JetBrains Mono',monospace" }}>Featured</div>}
+              <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#E8654A", marginBottom:"0.7rem" }}>{p.type}</div>
+              <div className="serif" style={{ fontSize:"1.1rem", color:"#fff", marginBottom: p.subtitle ? "0.3rem" : "0.8rem", lineHeight:1.35 }}>{p.title}</div>
+              {p.subtitle && <div style={{ fontSize:"0.8rem", color:"rgba(255,255,255,0.6)", marginBottom:"0.6rem", fontStyle:"italic" }}>{p.subtitle}</div>}
               <div style={{ fontSize:"0.8rem", color:"rgba(255,255,255,0.55)", lineHeight:1.6 }}>{p.solution.substring(0,100)}...</div>
               {p.collaborating && <div style={{ marginTop:"1rem", display:"inline-flex", alignItems:"center", gap:"0.4rem", fontSize:"0.75rem", color:"#E8654A", border:"1px solid #E8654A33", padding:"0.25rem 0.7rem", borderRadius:"3px" }}>🤝 Open to Collaborate</div>}
             </div>
           ))}
         </div>
-        <button className="btn-primary" style={{ marginTop:"2rem", background:"transparent", borderColor:"rgba(255,255,255,0.3)", color:"#fff" }} onClick={()=>onNav("ventures")}>All Ventures →</button>
+        <button className="btn-primary" style={{ marginTop:"0", marginBottom:"3rem", background:"transparent", borderColor:"rgba(255,255,255,0.3)", color:"#fff" }} onClick={()=>onNav("projects")}>All Projects →</button>
+      </section>
+
+      {/* SELECTED INSIGHTS */}
+      <section style={{ padding:"clamp(2rem, 8vw, 5rem) clamp(1.5rem, 5vw, 4rem)", background:"#fff" }}>
+        <SectionHeader num="04" title="What I'm Thinking About"/>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(280px, 1fr))", gap:"1.5rem" }}>
+          <div className="card">
+            <div className="mono" style={{ fontSize:"0.6rem", color:"#E63946", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.6rem", fontWeight:600 }}>01 — Digital Health</div>
+            <div className="serif" style={{ fontSize:"1.1rem", marginBottom:"0.8rem", lineHeight:1.3 }}>Why digital health isn't just technology</div>
+            <div style={{ fontSize:"0.85rem", color:"#4A4340", lineHeight:1.6, marginBottom:"1rem" }}>Digital health solutions must be designed for the realities of healthcare delivery, not abstract ideals.</div>
+            <a href="#" style={{ color:"#E63946", fontWeight:600, fontSize:"0.85rem", textDecoration:"none" }}>Read on LinkedIn →</a>
+          </div>
+          <div className="card">
+            <div className="mono" style={{ fontSize:"0.6rem", color:"#E63946", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.6rem", fontWeight:600 }}>02 — Health Systems</div>
+            <div className="serif" style={{ fontSize:"1.1rem", marginBottom:"0.8rem", lineHeight:1.3 }}>What healthcare interoperability could mean for Rwanda</div>
+            <div style={{ fontSize:"0.85rem", color:"#4A4340", lineHeight:1.6, marginBottom:"1rem" }}>Interoperable systems could transform how healthcare data flows across institutions and providers.</div>
+            <a href="#" style={{ color:"#E63946", fontWeight:600, fontSize:"0.85rem", textDecoration:"none" }}>Read on LinkedIn →</a>
+          </div>
+          <div className="card">
+            <div className="mono" style={{ fontSize:"0.6rem", color:"#E63946", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.6rem", fontWeight:600 }}>03 — Antimicrobial Resistance</div>
+            <div className="serif" style={{ fontSize:"1.1rem", marginBottom:"0.8rem", lineHeight:1.3 }}>Why antimicrobial resistance needs digital solutions</div>
+            <div style={{ fontSize:"0.85rem", color:"#4A4340", lineHeight:1.6, marginBottom:"1rem" }}>Digital traceability and surveillance are essential to combating the global AMR crisis.</div>
+            <a href="#" style={{ color:"#E63946", fontWeight:600, fontSize:"0.85rem", textDecoration:"none" }}>Read on LinkedIn →</a>
+          </div>
+        </div>
       </section>
 
       {/* CTA */}
       <section style={{ padding:"clamp(2rem, 8vw, 5rem) clamp(1.5rem, 5vw, 4rem)", background:"#E63946", textAlign:"center" }}>
-        <div className="serif" style={{ fontSize:"clamp(1.4rem, 4vw, 2.8rem)", color:"#fff", marginBottom:"1rem", fontStyle:"italic" }}>Let's build something meaningful together.</div>
-        <p style={{ color:"rgba(255,255,255,0.75)", marginBottom:"2rem", fontSize:"1rem" }}>Research · Ventures · Digital Health Innovation</p>
-        <button className="btn-primary" style={{ background:"#fff", color:"#E63946", borderColor:"#fff" }} onClick={()=>onNav("contact")}>Get In Touch</button>
+        <div className="serif" style={{ fontSize:"clamp(1.4rem, 4vw, 2.8rem)", color:"#fff", marginBottom:"1rem", fontStyle:"italic" }}>Let's build better health systems together.</div>
+        <p style={{ color:"rgba(255,255,255,0.75)", marginBottom:"2rem", fontSize:"1rem", maxWidth:"500px", margin:"0 auto 2rem" }}>I'm interested in collaborating on digital health research, health-tech projects, interoperability, healthcare innovation and evidence-based solutions for African health systems.</p>
+        <button className="btn-primary" style={{ background:"#fff", color:"#E63946", borderColor:"#fff" }} onClick={()=>onNav("contact")}>Start a Conversation</button>
       </section>
     </div>
   );
@@ -388,7 +428,7 @@ const AboutPage = ({ data }) => {
         </div>
       </div>
       <SectionHeader num="02" title="Leadership Roles"/>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(260px, 1fr))", gap:"1rem" }}>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(260px, 1fr))", gap:"1rem", marginBottom:"4rem" }}>
         {about.leadership.map((l,i)=>(
           <div key={i} className="card">
             <div className="mono" style={{ fontSize:"0.63rem", color:"#E63946", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.5rem" }}>{l.year}</div>
@@ -397,6 +437,40 @@ const AboutPage = ({ data }) => {
           </div>
         ))}
       </div>
+      {about.timeline && (
+        <div>
+          <SectionHeader num="03" title="Journey"/>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(240px, 1fr))", gap:"1.5rem" }}>
+            {about.timeline.map((item, i) => (
+              <div key={i} className="card" style={{ borderLeft:"3px solid #E63946" }}>
+                <div className="mono" style={{ fontSize:"0.65rem", color:"#E63946", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.5rem", fontWeight:600 }}>{item.year}</div>
+                <div className="serif" style={{ fontSize:"1.05rem", marginBottom:"0.6rem", lineHeight:1.3 }}>{item.title}</div>
+                <div style={{ fontSize:"0.85rem", color:"#4A4340", lineHeight:1.6 }}>{item.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {about.currentlyLearning && (
+        <div>
+          <SectionHeader num="04" title="Currently Learning"/>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(260px, 1fr))", gap:"1.5rem" }}>
+            {about.currentlyLearning.map((item, i) => (
+              <div key={i} className="card">
+                <div className="mono" style={{ fontSize:"0.63rem", color:"#D4A574", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.8rem", fontWeight:600 }}>{item.category}</div>
+                <ul style={{ listStyle:"none", padding:0, margin:0 }}>
+                  {item.skills.map((skill, j) => (
+                    <li key={j} style={{ fontSize:"0.85rem", color:"#4A4340", marginBottom:"0.4rem", paddingLeft:"0.8rem", position:"relative" }}>
+                      <span style={{ position:"absolute", left:0, color:"#E63946" }}>▪</span>
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -441,28 +515,61 @@ const ResearchPage = ({ data }) => {
   const [filter, setFilter] = useState("All");
   const types = ["All", ...new Set(data.research.map(r=>r.type))];
   const filtered = filter==="All" ? data.research : data.research.filter(r=>r.type===filter);
+  const { profile, about } = data;
+
   return (
     <div className="fade-in" style={{ padding:"clamp(2rem, 8vw, 4rem) clamp(1.5rem, 5vw, 5rem)" }}>
-      <SectionHeader num="03" title="Research & Abstracts"/>
-      <div style={{ display:"flex", gap:"0.5rem", flexWrap:"wrap", marginBottom:"2.5rem" }}>
-        {types.map(t=>(
-          <button key={t} onClick={()=>setFilter(t)} style={{ padding:"0.4rem 1rem", borderRadius:"2rem", border:"1.5px solid", fontFamily:"'JetBrains Mono',monospace", fontSize:"0.7rem", letterSpacing:"0.08em", cursor:"pointer", background:filter===t?"#E63946":"transparent", color:filter===t?"#fff":"#4A4340", borderColor:filter===t?"#E63946":"#D6CFC5", transition:"all 0.2s" }}>{t}</button>
-        ))}
+      <SectionHeader num="03" title="Research"/>
+
+      {/* Research Interests */}
+      <div style={{ marginBottom:"4rem" }}>
+        <div className="mono" style={{ fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#E63946", marginBottom:"1rem" }}>Research Interests</div>
+        <div style={{ display:"flex", flexWrap:"wrap", gap:"0.5rem" }}>
+          {["Digital Health", "Antimicrobial Resistance", "Health Systems", "Oncology", "Public Health", "Health Equity"].map(i=>(
+            <span key={i} style={{ background:"#F9F7F3", border:"1px solid #E8E0D5", color:"#4A4340", fontSize:"0.85rem", padding:"0.35rem 0.9rem", borderRadius:"4px", fontWeight:500 }}>{i}</span>
+          ))}
+        </div>
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:"1.2rem" }}>
-        {filtered.map((r,i)=>(
-          <div key={i} className="card">
-            <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#2A9D8F", marginBottom:"0.7rem" }}>◆ {r.type}</div>
-            <div className="serif" style={{ fontSize:"1.1rem", marginBottom:"0.7rem", lineHeight:1.35 }}>{r.title}</div>
-            <div style={{ fontSize:"0.82rem", color:"#4A4340", lineHeight:1.65, marginBottom:"1rem" }}>{r.summary}</div>
-            <div style={{ display:"flex", flexWrap:"wrap", gap:"0.5rem", alignItems:"center" }}>
-              <span style={{ background: r.status==="Published"?"#2A9D8F22":r.status==="Under Review"?"#D4A57422":"#E6394622", color: r.status==="Published"?"#2A9D8F":r.status==="Under Review"?"#D4A574":"#E63946", padding:"0.2rem 0.7rem", borderRadius:"2rem", fontSize:"0.7rem", fontWeight:600 }}>{r.status}</span>
-              <span className="mono" style={{ fontSize:"0.65rem", color:"#4A4340", opacity:0.5 }}>{r.year} · {r.journal}</span>
+
+      {/* Research filter and grid */}
+      <div style={{ marginBottom:"3rem" }}>
+        <div className="mono" style={{ fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#E63946", marginBottom:"1rem" }}>Research Activity</div>
+        <div style={{ display:"flex", gap:"0.5rem", flexWrap:"wrap", marginBottom:"2rem" }}>
+          {types.map(t=>(
+            <button key={t} onClick={()=>setFilter(t)} style={{ padding:"0.4rem 1rem", borderRadius:"2rem", border:"1.5px solid", fontFamily:"'JetBrains Mono',monospace", fontSize:"0.7rem", letterSpacing:"0.08em", cursor:"pointer", background:filter===t?"#E63946":"transparent", color:filter===t?"#fff":"#4A4340", borderColor:filter===t?"#E63946":"#D6CFC5", transition:"all 0.2s" }}>{t}</button>
+          ))}
+        </div>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:"1.2rem" }}>
+          {filtered.map((r,i)=>(
+            <div key={i} className="card">
+              <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#2A9D8F", marginBottom:"0.7rem" }}>◆ {r.type}</div>
+              <div className="serif" style={{ fontSize:"1.1rem", marginBottom:"0.7rem", lineHeight:1.35 }}>{r.title}</div>
+              <div style={{ fontSize:"0.82rem", color:"#4A4340", lineHeight:1.65, marginBottom:"1rem" }}>{r.summary}</div>
+              <div style={{ display:"flex", flexWrap:"wrap", gap:"0.5rem", alignItems:"center" }}>
+                <span style={{ background: r.status==="Published"?"#2A9D8F22":r.status==="Under Review"?"#D4A57422":"#E6394622", color: r.status==="Published"?"#2A9D8F":r.status==="Under Review"?"#D4A574":"#E63946", padding:"0.2rem 0.7rem", borderRadius:"2rem", fontSize:"0.7rem", fontWeight:600 }}>{r.status}</span>
+                <span className="mono" style={{ fontSize:"0.65rem", color:"#4A4340", opacity:0.5 }}>{r.year} · {r.journal}</span>
+              </div>
+              <div style={{ fontSize:"0.75rem", color:"#4A4340", marginTop:"0.5rem" }}>Role: <strong>{r.role}</strong></div>
+              {r.link && <a href={r.link} target="_blank" rel="noreferrer" style={{ display:"inline-flex", alignItems:"center", gap:"0.3rem", fontSize:"0.8rem", color:"#E63946", fontWeight:600, marginTop:"0.8rem", textDecoration:"none" }}>Read →</a>}
             </div>
-            <div style={{ fontSize:"0.75rem", color:"#4A4340", marginTop:"0.5rem" }}>Role: <strong>{r.role}</strong></div>
-            {r.link && <a href={r.link} target="_blank" rel="noreferrer" style={{ display:"inline-flex", alignItems:"center", gap:"0.3rem", fontSize:"0.8rem", color:"#E63946", fontWeight:600, marginTop:"0.8rem", textDecoration:"none" }}>Read →</a>}
-          </div>
-        ))}
+          ))}
+        </div>
+      </div>
+
+      {/* Academic Profiles */}
+      <div style={{ padding:"2rem", background:"#F9F7F3", borderRadius:"8px" }}>
+        <div className="mono" style={{ fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#E63946", marginBottom:"1rem" }}>Academic Profiles</div>
+        <div style={{ display:"flex", gap:"1rem", flexWrap:"wrap" }}>
+          {profile.orcid && profile.orcid !== "0000-0000-0000-0000" && (
+            <a href={`https://orcid.org/${profile.orcid}`} target="_blank" rel="noreferrer" style={{ padding:"0.6rem 1rem", background:"#fff", border:"1px solid #E8E0D5", borderRadius:"4px", textDecoration:"none", color:"#E63946", fontWeight:600, fontSize:"0.85rem" }}>ORCID Profile →</a>
+          )}
+          {profile.googlescholar && (
+            <a href={`https://${profile.googlescholar}`} target="_blank" rel="noreferrer" style={{ padding:"0.6rem 1rem", background:"#fff", border:"1px solid #E8E0D5", borderRadius:"4px", textDecoration:"none", color:"#E63946", fontWeight:600, fontSize:"0.85rem" }}>Google Scholar →</a>
+          )}
+          {profile.researchgate && (
+            <a href={`https://${profile.researchgate}`} target="_blank" rel="noreferrer" style={{ padding:"0.6rem 1rem", background:"#fff", border:"1px solid #E8E0D5", borderRadius:"4px", textDecoration:"none", color:"#E63946", fontWeight:600, fontSize:"0.85rem" }}>ResearchGate →</a>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -475,7 +582,7 @@ const WritingPage = ({ data }) => {
   const filtered = filter==="All" ? data.writing : data.writing.filter(w=>w.type===filter);
   return (
     <div className="fade-in" style={{ padding:"clamp(2rem, 8vw, 4rem) clamp(1.5rem, 5vw, 5rem)" }}>
-      <SectionHeader num="07" title="Writing & Articles"/>
+      <SectionHeader num="05" title="Writing & Ideas"/>
       <div style={{ display:"flex", gap:"0.5rem", flexWrap:"wrap", marginBottom:"2.5rem" }}>
         {types.map(t=>(
           <button key={t} onClick={()=>setFilter(t)} style={{ padding:"0.4rem 1rem", borderRadius:"2rem", border:"1.5px solid", fontFamily:"'JetBrains Mono',monospace", fontSize:"0.7rem", letterSpacing:"0.08em", cursor:"pointer", background:filter===t?"#E63946":"transparent", color:filter===t?"#fff":"#4A4340", borderColor:filter===t?"#E63946":"#D6CFC5", transition:"all 0.2s" }}>{t}</button>
@@ -501,18 +608,22 @@ const WritingPage = ({ data }) => {
   );
 };
 
-// ─── PROJECTS PAGE ────────────────────────────────────────────────────────────
-const VenturesPage = ({ data }) => (
+// ─── PROJECTS PAGE (formerly Ventures) ────────────────────────────────────────
+const ProjectsPage = ({ data }) => (
   <div className="fade-in" style={{ padding:"clamp(2rem, 8vw, 4rem) clamp(1.5rem, 5vw, 5rem)" }}>
-    <SectionHeader num="04" title="Ventures & Entrepreneurship"/>
+    <SectionHeader num="04" title="Projects & Innovation"/>
+    <p style={{ color:"#4A4340", fontSize:"1rem", lineHeight:1.8, maxWidth:"680px", marginBottom:"3rem" }}>
+      A collection of digital health tools, research projects, and health systems innovations. Each project is classified by its current stage and type to provide transparent context for the work.
+    </p>
     <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:"1.5rem" }}>
       {data.projects.map((p,i)=>(
-        <div key={i} className="card">
+        <div key={i} className="card" style={{ borderTop: p.featured ? "3px solid #E63946" : "none" }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"1rem" }}>
             <div className="mono" style={{ fontSize:"0.63rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#2A9D8F" }}>{p.type}</div>
-            <span style={{ background:p.stage==="Active"||p.stage==="Pilot"?"#2A9D8F22":"#D4A57422", color:p.stage==="Active"||p.stage==="Pilot"?"#2A9D8F":"#D4A574", padding:"0.15rem 0.6rem", borderRadius:"2rem", fontSize:"0.68rem", fontWeight:600 }}>{p.stage}</span>
+            <span style={{ background:p.stage==="Active"||p.stage==="Pilot"||p.stage==="Prototype"?"#2A9D8F22":"#D4A57422", color:p.stage==="Active"||p.stage==="Pilot"||p.stage==="Prototype"?"#2A9D8F":"#D4A574", padding:"0.15rem 0.6rem", borderRadius:"2rem", fontSize:"0.68rem", fontWeight:600 }}>{p.stage}</span>
           </div>
-          <div className="serif" style={{ fontSize:"1.3rem", marginBottom:"1.2rem", lineHeight:1.2 }}>{p.title}</div>
+          <div className="serif" style={{ fontSize:"1.3rem", marginBottom: p.subtitle ? "0.3rem" : "1.2rem", lineHeight:1.2 }}>{p.title}</div>
+          {p.subtitle && <div style={{ fontSize:"0.85rem", color:"#4A4340", marginBottom:"1rem", fontStyle:"italic" }}>{p.subtitle}</div>}
           <div style={{ marginBottom:"0.8rem" }}>
             <div className="mono" style={{ fontSize:"0.63rem", color:"#E63946", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Problem</div>
             <div style={{ fontSize:"0.83rem", color:"#4A4340", lineHeight:1.6 }}>{p.problem}</div>
@@ -585,47 +696,104 @@ const InitiativesPage = ({ data }) => {
   );
 };
 
-// ─── INNOVATION LAB PAGE ──────────────────────────────────────────────────────
-const InnovationLabPage = ({ data }) => (
+// ─── DIGITAL HEALTH LAB PAGE ──────────────────────────────────────────────────
+const DigitalHealthLabPage = ({ data }) => (
   <div className="fade-in" style={{ background:"#0F0D0B", minHeight:"60vh" }}>
     {/* Header band */}
     <div style={{ background:"linear-gradient(135deg,#1A1612 0%,#2C1810 100%)", padding:"4rem clamp(1.5rem,5vw,5rem) 3rem" }}>
-      <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.68rem", letterSpacing:"0.16em", textTransform:"uppercase", color:"#E8654A", marginBottom:"1rem" }}>06 — Innovation Lab</div>
+      <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.68rem", letterSpacing:"0.16em", textTransform:"uppercase", color:"#E8654A", marginBottom:"1rem" }}>05 — Digital Health Lab</div>
       <h1 className="serif" style={{ fontSize:"clamp(2rem,4vw,3.2rem)", color:"#fff", lineHeight:1.1, marginBottom:"1rem" }}>
-        Where ideas become<br/><em style={{ color:"#E8654A" }}>tools for change.</em>
+        Questions I'm investigating.<br/>Systems I'm studying. Solutions<br/><em style={{ color:"#E8654A" }}>I'm building.</em>
       </h1>
-      <p style={{ fontSize:"1rem", color:"rgba(255,255,255,0.5)", maxWidth:"520px", lineHeight:1.7 }}>
-        A space for prototypes, experiments, and digital health solutions built at the intersection of medicine, technology, and community need.
+      <p style={{ fontSize:"1rem", color:"rgba(255,255,255,0.5)", maxWidth:"720px", lineHeight:1.7 }}>
+        My research and innovation laboratory: exploring the intersection of digital health, health systems, and clinical practice. This is where I investigate healthcare problems, study existing solutions, and build tools for impact.
       </p>
     </div>
-    {/* Projects grid */}
+
+    {/* Key Questions Section */}
     <div style={{ padding:"3.5rem clamp(1.5rem,5vw,5rem)" }}>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:"1.5rem" }}>
-        {data.projects.map((p,i) => (
-          <div key={i} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"6px", padding:"2rem", position:"relative", overflow:"hidden", transition:"transform 0.2s, border-color 0.2s" }}
-            onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-3px)"; e.currentTarget.style.borderColor="rgba(232,101,74,0.4)"; }}
-            onMouseLeave={e=>{ e.currentTarget.style.transform=""; e.currentTarget.style.borderColor="rgba(255,255,255,0.1)"; }}>
-            <div style={{ position:"absolute", bottom:"-1rem", right:"0.5rem", fontFamily:"'DM Serif Display',serif", fontSize:"6rem", color:"#fff", opacity:0.03, lineHeight:1, pointerEvents:"none" }}>{String(i+1).padStart(2,"0")}</div>
-            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"1rem" }}>
-              <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#E8654A" }}>{p.type}</div>
-              <span style={{ background:p.stage==="Active"||p.stage==="Pilot"?"#1A7A6E22":"#B8860B22", color:p.stage==="Active"||p.stage==="Pilot"?"#1A7A6E":"#B8860B", padding:"0.15rem 0.6rem", borderRadius:"2rem", fontSize:"0.68rem", fontWeight:600 }}>{p.stage}</span>
-            </div>
-            <div className="serif" style={{ fontSize:"1.3rem", color:"#fff", marginBottom:"1.2rem", lineHeight:1.2 }}>{p.title}</div>
-            <div style={{ marginBottom:"0.75rem" }}>
-              <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", color:"#C0392B", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Problem</div>
-              <div style={{ fontSize:"0.82rem", color:"rgba(255,255,255,0.55)", lineHeight:1.6 }}>{p.problem}</div>
-            </div>
-            <div style={{ marginBottom:"0.75rem" }}>
-              <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", color:"#1A7A6E", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Solution</div>
-              <div style={{ fontSize:"0.82rem", color:"rgba(255,255,255,0.55)", lineHeight:1.6 }}>{p.solution}</div>
-            </div>
-            <div style={{ marginBottom:"1rem" }}>
-              <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", color:"#B8860B", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Impact</div>
-              <div style={{ fontSize:"0.82rem", color:"rgba(255,255,255,0.55)", lineHeight:1.6 }}>{p.impact}</div>
-            </div>
-            {p.collaborating && <div style={{ display:"inline-flex", alignItems:"center", gap:"0.4rem", fontSize:"0.75rem", color:"#E8654A", border:"1px solid #E8654A33", padding:"0.3rem 0.8rem", borderRadius:"3px", background:"#E8654A08" }}>🤝 Open to Collaborate</div>}
+      <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#E8654A", marginBottom:"2rem" }}>Key Questions</div>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(280px, 1fr))", gap:"1.5rem", marginBottom:"4rem" }}>
+        <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"6px", padding:"1.8rem" }}>
+          <div style={{ fontSize:"1.2rem", color:"#E8654A", marginBottom:"0.5rem" }}>🔗</div>
+          <div className="serif" style={{ fontSize:"1.1rem", color:"#fff", marginBottom:"0.8rem", lineHeight:1.35 }}>Interoperability</div>
+          <div style={{ fontSize:"0.9rem", color:"rgba(255,255,255,0.6)", lineHeight:1.6 }}>How can hospitals, laboratories, pharmacies and health-information systems communicate effectively?</div>
+        </div>
+        <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"6px", padding:"1.8rem" }}>
+          <div style={{ fontSize:"1.2rem", color:"#E8654A", marginBottom:"0.5rem" }}>🤖</div>
+          <div className="serif" style={{ fontSize:"1.1rem", color:"#fff", marginBottom:"0.8rem", lineHeight:1.35 }}>AI in Healthcare</div>
+          <div style={{ fontSize:"0.9rem", color:"rgba(255,255,255,0.6)", lineHeight:1.6 }}>Where can AI genuinely improve clinical and public-health decision-making?</div>
+        </div>
+        <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"6px", padding:"1.8rem" }}>
+          <div style={{ fontSize:"1.2rem", color:"#E8654A", marginBottom:"0.5rem" }}>💊</div>
+          <div className="serif" style={{ fontSize:"1.1rem", color:"#fff", marginBottom:"0.8rem", lineHeight:1.35 }}>Antimicrobial Stewardship</div>
+          <div style={{ fontSize:"0.9rem", color:"rgba(255,255,255,0.6)", lineHeight:1.6 }}>How can digital systems improve antibiotic prescribing, traceability and surveillance?</div>
+        </div>
+        <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"6px", padding:"1.8rem" }}>
+          <div style={{ fontSize:"1.2rem", color:"#E8654A", marginBottom:"0.5rem" }}>📊</div>
+          <div className="serif" style={{ fontSize:"1.1rem", color:"#fff", marginBottom:"0.8rem", lineHeight:1.35 }}>Health Data</div>
+          <div style={{ fontSize:"0.9rem", color:"rgba(255,255,255,0.6)", lineHeight:1.6 }}>How can fragmented health data become actionable health intelligence?</div>
+        </div>
+        <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"6px", padding:"1.8rem" }}>
+          <div style={{ fontSize:"1.2rem", color:"#E8654A", marginBottom:"0.5rem" }}>🏥</div>
+          <div className="serif" style={{ fontSize:"1.1rem", color:"#fff", marginBottom:"0.8rem", lineHeight:1.35 }}>Clinical Workflow</div>
+          <div style={{ fontSize:"0.9rem", color:"rgba(255,255,255,0.6)", lineHeight:1.6 }}>How should technology fit into the realities of healthcare delivery?</div>
+        </div>
+      </div>
+
+      {/* Currently Learning */}
+      {data.about.currentlyLearning && (
+        <div style={{ marginBottom:"4rem" }}>
+          <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#E8654A", marginBottom:"2rem" }}>Currently Learning</div>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(260px, 1fr))", gap:"1.5rem" }}>
+            {data.about.currentlyLearning.map((item, i) => (
+              <div key={i} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"6px", padding:"1.8rem" }}>
+                <div className="mono" style={{ fontSize:"0.65rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#E8654A", marginBottom:"1rem" }}>{item.category}</div>
+                <ul style={{ listStyle:"none", padding:0, margin:0 }}>
+                  {item.skills.map((skill, j) => (
+                    <li key={j} style={{ fontSize:"0.9rem", color:"rgba(255,255,255,0.7)", marginBottom:"0.4rem", paddingLeft:"1rem", position:"relative" }}>
+                      <span style={{ position:"absolute", left:0 }}>→</span>
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+      )}
+
+      {/* Projects grid */}
+      <div>
+        <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#E8654A", marginBottom:"2rem" }}>Active Projects</div>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:"1.5rem" }}>
+          {data.projects.map((p,i) => (
+            <div key={i} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"6px", padding:"2rem", position:"relative", overflow:"hidden", transition:"transform 0.2s, border-color 0.2s" }}
+              onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-3px)"; e.currentTarget.style.borderColor="rgba(232,101,74,0.4)"; }}
+              onMouseLeave={e=>{ e.currentTarget.style.transform=""; e.currentTarget.style.borderColor="rgba(255,255,255,0.1)"; }}>
+              <div style={{ position:"absolute", bottom:"-1rem", right:"0.5rem", fontFamily:"'DM Serif Display',serif", fontSize:"6rem", color:"#fff", opacity:0.03, lineHeight:1, pointerEvents:"none" }}>{String(i+1).padStart(2,"0")}</div>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"1rem" }}>
+                <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"#E8654A" }}>{p.type}</div>
+                <span style={{ background:p.stage==="Active"||p.stage==="Pilot"||p.stage==="Prototype"?"#1A7A6E22":"#B8860B22", color:p.stage==="Active"||p.stage==="Pilot"||p.stage==="Prototype"?"#1A7A6E":"#B8860B", padding:"0.15rem 0.6rem", borderRadius:"2rem", fontSize:"0.68rem", fontWeight:600 }}>{p.stage}</span>
+              </div>
+              <div className="serif" style={{ fontSize:"1.3rem", color:"#fff", marginBottom: p.subtitle ? "0.3rem" : "1.2rem", lineHeight:1.2 }}>{p.title}</div>
+              {p.subtitle && <div style={{ fontSize:"0.85rem", color:"rgba(255,255,255,0.6)", marginBottom:"0.8rem", fontStyle:"italic" }}>{p.subtitle}</div>}
+              <div style={{ marginBottom:"0.75rem" }}>
+                <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", color:"#C0392B", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Problem</div>
+                <div style={{ fontSize:"0.82rem", color:"rgba(255,255,255,0.55)", lineHeight:1.6 }}>{p.problem}</div>
+              </div>
+              <div style={{ marginBottom:"0.75rem" }}>
+                <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", color:"#1A7A6E", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Solution</div>
+                <div style={{ fontSize:"0.82rem", color:"rgba(255,255,255,0.55)", lineHeight:1.6 }}>{p.solution}</div>
+              </div>
+              <div style={{ marginBottom:"1rem" }}>
+                <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", color:"#B8860B", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"0.3rem" }}>Impact</div>
+                <div style={{ fontSize:"0.82rem", color:"rgba(255,255,255,0.55)", lineHeight:1.6 }}>{p.impact}</div>
+              </div>
+              {p.collaborating && <div style={{ display:"inline-flex", alignItems:"center", gap:"0.4rem", fontSize:"0.75rem", color:"#E8654A", border:"1px solid #E8654A33", padding:"0.3rem 0.8rem", borderRadius:"3px", background:"#E8654A08" }}>🤝 Open to Collaborate</div>}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </div>
@@ -684,12 +852,12 @@ const ContactPage = ({ data }) => {
       {/* HERO BAND */}
       <div style={{ background:"linear-gradient(135deg,#0F0D0B 0%,#2C1810 100%)", padding:"clamp(2rem, 8vw, 4rem) clamp(1.5rem, 5vw, 5rem)" }}>
         <div style={{ maxWidth:"1100px", margin:"0 auto" }}>
-          <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.68rem", letterSpacing:"0.16em", textTransform:"uppercase", color:"#E63946", marginBottom:"1rem" }}>10 — Contact</div>
+          <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.68rem", letterSpacing:"0.16em", textTransform:"uppercase", color:"#E63946", marginBottom:"1rem" }}>06 — Contact</div>
           <h1 className="serif" style={{ fontSize:"clamp(1.8rem, 4vw, 3.2rem)", color:"#fff", lineHeight:1.1, marginBottom:"1rem" }}>
-            Let's build something<br/><em style={{ color:"#E8654A" }}>meaningful together.</em>
+            Let's build better<br/><em style={{ color:"#E8654A" }}>health systems.</em>
           </h1>
-          <p style={{ fontSize:"clamp(0.9rem, 2vw, 1rem)", color:"rgba(255,255,255,0.5)", maxWidth:"500px", lineHeight:1.7 }}>
-            Whether you're a researcher, policy maker, fellow student, or organization — I'm open to collaboration, speaking, and new opportunities.
+          <p style={{ fontSize:"clamp(0.9rem, 2vw, 1rem)", color:"rgba(255,255,255,0.75)", maxWidth:"650px", lineHeight:1.8 }}>
+            I'm interested in collaborating on digital health research, health-tech projects, interoperability, healthcare innovation and evidence-based solutions for African health systems. Whether you're a researcher, policy maker, clinician, entrepreneur, funder, or organization — let's connect.
           </p>
           {(profile.openToCollaboration || profile.openToWork) && (
             <div style={{ display:"flex", gap:"0.6rem", marginTop:"1.5rem", flexWrap:"wrap" }}>
